@@ -1,0 +1,120 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: supabase/postgres:15.1.0.118
+    container_name: vapor-pos-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/supabase/init-data.sql:/docker-entrypoint-initdb.d/init-data.sql
+      - ./supabase/migrations:/docker-entrypoint-initdb.d/migrations
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  kong:
+    image: kong:3.5.0
+    container_name: vapor-pos-kong
+    ports:
+      - "8000:8000"
+      - "8443:8443"
+    environment:
+      - KONG_DATABASE=off
+      - KONG_DECLARATIVE_CONFIG=/kong/kong.yml
+    volumes:
+      - ./docker/supabase/kong.yml:/kong/kong.yml:ro
+    depends_on:
+      - postgres
+
+  gotrue:
+    image: supabase/gotrue:v2.148.0
+    container_name: vapor-pos-gotrue
+    ports:
+      - "3100:3100"
+    environment:
+      - GOTRUE_DB_DRIVER=postgres
+      - GOTRUE_DB_URI=postgres://postgres:postgres@postgres:5432/postgres
+      - GOTRUE_SITE_URL=http://localhost:8000
+      - GOTRUE_JWT_SECRET=your-super-secret-jwt-key-change-in-production
+      - GOTRUE_OPERATOR_TOKEN=your-operator-token-change-in-production
+      - GOTRUE_EXTERNAL_EMAIL_ENABLED=true
+      - GOTRUE_EXTERNAL_ANONYMOUS_USERS_ENABLED=false
+      - GOTRUE_MAILER_AUTOCONFIRM=true
+    depends_on:
+      - postgres
+
+  postgrest:
+    image: postgrest/postgrest:11.2.2
+    container_name: vapor-pos-postgrest
+    ports:
+      - "3000:3000"
+    environment:
+      - PGRST_DB_URI=postgres://postgres:postgres@postgres:5432/postgres
+      - PGRST_DB_SCHEMAS=public,storage
+      - PGRST_DB_ANON_ROLE=anon
+      - PGRST_SERVER_PORT=3000
+    depends_on:
+      - postgres
+
+  studio:
+    image: supabase/studio:0.24.0
+    container_name: vapor-pos-studio
+    ports:
+      - "8000:8000"
+    environment:
+      - STUDIO_PG_META_URL=http://postgres:8080
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - postgres
+
+  # Frontend development (optional - can also use pnpm dev locally)
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: vapor-pos-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_SUPABASE_URL=http://localhost:8000
+      - VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhcG9yLXBvcyIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNjQ0MTAwMDAwLCJleHAiOjE5NTk2NzYwMDB9.placeholder
+      - VITE_API_URL=http://localhost:3001
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+  # Backend development
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: vapor-pos-backend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - VITE_SUPABASE_URL=http://localhost:8000
+      - VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhcG9yLXBvcyIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNjQ0MTAwMDAwLCJleHAiOjE5NTk2NzYwMDB9.placeholder
+      - SUPABASE_URL=http://localhost:8000
+      - SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhcG9yLXBvcyIsInJvbGUiOiJzZXJ2aWNlX3JvbGUiLCJpYXQiOjE2NDQxMDAwMDAsImV4cCI6MTk1OTY3NjAwMH0.placeholder
+      - MIDTRANS_SERVER_KEY=dummy-server-key
+      - MIDTRANS_IS_PRODUCTION=false
+      - SENDGRIC_API_KEY=dummy-sendgrid-key
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
