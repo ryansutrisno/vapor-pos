@@ -397,7 +397,7 @@ pnpm install
 pnpm build
 ```
 
-### API tidak响应
+### API tidak response
 
 ```bash
 # Check API logs
