@@ -20,6 +20,10 @@ import Transactions from '@/pages/dashboard/Transactions'
 import Customers from '@/pages/dashboard/Customers'
 import CashierReports from '@/pages/dashboard/CashierReports'
 import Orders from '@/pages/dashboard/Orders'
+import { TrialManagementPage } from '@/pages/dashboard/TrialManagement'
+import { ManualActivationPage } from '@/pages/dashboard/ManualActivation'
+import { AuditLogsPage } from '@/pages/dashboard/AuditLogs'
+import { InvoiceManagementPage } from '@/pages/dashboard/InvoiceManagement'
 
 export default function Dashboard() {
   const { user, isAuthenticated } = useAuthStore()
@@ -101,6 +105,46 @@ export default function Dashboard() {
           element={
             user.role === 'superadmin' ? (
               <Settings />
+            ) : (
+              <Navigate to={`/dashboard/${user.role}`} replace />
+            )
+          } 
+        />
+        <Route 
+          path="/superadmin/trial-management" 
+          element={
+            user.role === 'superadmin' ? (
+              <TrialManagementPage />
+            ) : (
+              <Navigate to={`/dashboard/${user.role}`} replace />
+            )
+          } 
+        />
+        <Route 
+          path="/superadmin/manual-activation" 
+          element={
+            user.role === 'superadmin' ? (
+              <ManualActivationPage />
+            ) : (
+              <Navigate to={`/dashboard/${user.role}`} replace />
+            )
+          } 
+        />
+        <Route 
+          path="/superadmin/audit-logs" 
+          element={
+            user.role === 'superadmin' ? (
+              <AuditLogsPage />
+            ) : (
+              <Navigate to={`/dashboard/${user.role}`} replace />
+            )
+          } 
+        />
+        <Route 
+          path="/superadmin/invoices" 
+          element={
+            user.role === 'superadmin' ? (
+              <InvoiceManagementPage />
             ) : (
               <Navigate to={`/dashboard/${user.role}`} replace />
             )

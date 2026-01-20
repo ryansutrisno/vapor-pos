@@ -47,6 +47,10 @@ export interface TranslationData {
     pos: string;
     transactions: string;
     customers: string;
+    trialManagement: string;
+    manualActivation: string;
+    auditLogs: string;
+    invoiceManagement: string;
   };
   roles: {
     superadmin: string;
@@ -926,6 +930,53 @@ export interface TranslationData {
       service: string;
     };
   };
+  auditLog: {
+    title: string;
+    description: string;
+    action: string;
+    entity: string;
+    user: string;
+    details: string;
+    time: string;
+    view: string;
+    noData: string;
+    filters: {
+      search: string;
+      actionType: string;
+      entity: string;
+      all: string;
+      startDate: string;
+      endDate: string;
+      perPage: string;
+      moreFilters: string;
+      reset: string;
+    };
+    tabs: {
+      changes: string;
+      rawData: string;
+    };
+    labels: {
+      before: string;
+      after: string;
+      newData: string;
+      deletedData: string;
+      noChanges: string;
+      noData: string;
+    };
+    stats: {
+      totalLogs: string;
+      today: string;
+      last24Hours: string;
+      last7Days: string;
+    };
+    realtime: {
+      active: string;
+      offline: string;
+    };
+    export: {
+      csv: string;
+    };
+  };
 }
 
 export const translations: Record<'id' | 'en', TranslationData> = {
@@ -978,6 +1029,10 @@ export const translations: Record<'id' | 'en', TranslationData> = {
       pos: 'POS',
       transactions: 'Transaksi',
       customers: 'Pelanggan',
+      trialManagement: 'Trial Management',
+      manualActivation: 'Manual Activation',
+      auditLogs: 'Audit Logs',
+      invoiceManagement: 'Invoice Management',
     },
     roles: {
       superadmin: 'Super Admin',
@@ -1896,6 +1951,53 @@ export const translations: Record<'id' | 'en', TranslationData> = {
         service: 'Service',
       },
     },
+    auditLog: {
+      title: 'Audit Log',
+      description: 'Riwayat aktivitas sistem dan pengguna',
+      action: 'Aksi',
+      entity: 'Entitas',
+      user: 'User',
+      details: 'Detail',
+      time: 'Waktu',
+      view: 'Lihat',
+      noData: 'Tidak ada data audit log',
+      filters: {
+        search: 'Cari',
+        actionType: 'Tipe Aksi',
+        entity: 'Entitas',
+        all: 'Semua',
+        startDate: 'Tanggal Mulai',
+        endDate: 'Tanggal Selesai',
+        perPage: 'Per Halaman',
+        moreFilters: 'Filter Lainnya',
+        reset: 'Reset',
+      },
+      tabs: {
+        changes: 'Perubahan',
+        rawData: 'Data Mentah',
+      },
+      labels: {
+        before: 'Sebelum',
+        after: 'Sesudah',
+        newData: 'Data Baru',
+        deletedData: 'Data yang Dihapus',
+        noChanges: 'Tidak ada perubahan terdeteksi',
+        noData: 'Tidak ada data',
+      },
+      stats: {
+        totalLogs: 'Total Log',
+        today: 'Hari Ini',
+        last24Hours: '24 Jam Terakhir',
+        last7Days: '7 Hari Terakhir',
+      },
+      realtime: {
+        active: 'Realtime Aktif',
+        offline: 'Offline',
+      },
+      export: {
+        csv: 'Export CSV',
+      },
+    },
   },
   en: {
     common: {
@@ -1946,6 +2048,10 @@ export const translations: Record<'id' | 'en', TranslationData> = {
       pos: 'POS',
       transactions: 'Transactions',
       customers: 'Customers',
+      trialManagement: 'Trial Management',
+      manualActivation: 'Manual Activation',
+      auditLogs: 'Audit Logs',
+      invoiceManagement: 'Invoice Management',
     },
     roles: {
       superadmin: 'Super Admin',
@@ -2858,6 +2964,53 @@ export const translations: Record<'id' | 'en', TranslationData> = {
         liquid: 'Liquid',
         peripheral: 'Peripheral',
         service: 'Service',
+      },
+    },
+    auditLog: {
+      title: 'Audit Logs',
+      description: 'System and user activity history',
+      action: 'Action',
+      entity: 'Entity',
+      user: 'User',
+      details: 'Details',
+      time: 'Time',
+      view: 'View',
+      noData: 'No audit log data',
+      filters: {
+        search: 'Search',
+        actionType: 'Action Type',
+        entity: 'Entity',
+        all: 'All',
+        startDate: 'Start Date',
+        endDate: 'End Date',
+        perPage: 'Per Page',
+        moreFilters: 'More Filters',
+        reset: 'Reset',
+      },
+      tabs: {
+        changes: 'Changes',
+        rawData: 'Raw Data',
+      },
+      labels: {
+        before: 'Before',
+        after: 'After',
+        newData: 'New Data',
+        deletedData: 'Deleted Data',
+        noChanges: 'No changes detected',
+        noData: 'No data',
+      },
+      stats: {
+        totalLogs: 'Total Logs',
+        today: 'Today',
+        last24Hours: 'Last 24 Hours',
+        last7Days: 'Last 7 Days',
+      },
+      realtime: {
+        active: 'Realtime Active',
+        offline: 'Offline',
+      },
+      export: {
+        csv: 'Export CSV',
       },
     },
   },

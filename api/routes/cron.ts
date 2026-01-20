@@ -373,4 +373,212 @@ router.get('/reactivate-paid-users', async (req, res) => {
   }
 })
 
+// ========================
+// INVOICE BILL REMINDER SYSTEM
+// ========================
+
+async function sendInvoiceReminderWithPDF(invoice: any, daysUntilDue: number): Promise<void> {
+  try {
+    const { generateInvoicePDF } = await import('../lib/pdf-invoice.js')
+    const { sendBillReminderEmail } = await import('../lib/email.js')
+
+    const pdfBuffer = await generateInvoicePDF(invoice.id)
+
+    await sendBillReminderEmail(
+      invoice.user.email,
+      invoice.user.name,
+      {
+        invoiceNumber: invoice.invoice_number,
+        amountDue: invoice.amount,
+        currency: invoice.currency,
+        dueDate: invoice.due_date,
+        daysUntilDue: daysUntilDue,
+        planName: invoice.plan_name,
+        billingCycle: invoice.billing_cycle,
+        invoicePdfBuffer: pdfBuffer,
+        paymentUrl: `${process.env.FRONTEND_URL}/payment/${invoice.invoice_number}`
+      }
+    )
+
+    await supabase
+      .from('invoices')
+      .update({
+        reminder_status: `sent_${daysUntilDue}d`,
+        last_reminder_sent_at: new Date().toISOString()
+      })
+      .eq('id', invoice.id)
+
+    console.log(`Invoice reminder sent for ${invoice.invoice_number} (${daysUntilDue} days before due)`)
+  } catch (error) {
+    console.error(`Error sending invoice reminder for ${invoice.invoice_number}:`, error)
+  }
+}
+
+async function processInvoice14DayReminders() {
+  const targetDate = new Date()
+  targetDate.setDate(targetDate.getDate() + 14)
+  targetDate.setHours(0, 0, 0, 0)
+
+  const targetDateEnd = new Date(targetDate)
+  targetDateEnd.setDate(targetDateEnd.getDate() + 1)
+
+  const { data: invoices } = await supabase
+    .from('invoices')
+    .select('*, user:users(email, name)')
+    .eq('status', 'sent')
+    .eq('reminder_status', 'none')
+    .gte('due_date', targetDate.toISOString())
+    .lt('due_date', targetDateEnd.toISOString())
+
+  if (invoices && invoices.length > 0) {
+    console.log(`Processing ${invoices.length} invoices for 14-day reminder`)
+    for (const invoice of invoices) {
+      await sendInvoiceReminderWithPDF(invoice, 14)
+    }
+  }
+}
+
+async function processInvoice7DayReminders() {
+  const targetDate = new Date()
+  targetDate.setDate(targetDate.getDate() + 7)
+  targetDate.setHours(0, 0, 0, 0)
+
+  const targetDateEnd = new Date(targetDate)
+  targetDateEnd.setDate(targetDateEnd.getDate() + 1)
+
+  const { data: invoices } = await supabase
+    .from('invoices')
+    .select('*, user:users(email, name)')
+    .eq('status', 'sent')
+    .eq('reminder_status', 'sent_14d')
+    .gte('due_date', targetDate.toISOString())
+    .lt('due_date', targetDateEnd.toISOString())
+
+  if (invoices && invoices.length > 0) {
+    console.log(`Processing ${invoices.length} invoices for 7-day reminder`)
+    for (const invoice of invoices) {
+      await sendInvoiceReminderWithPDF(invoice, 7)
+    }
+  }
+}
+
+async function processInvoice3DayReminders() {
+  const targetDate = new Date()
+  targetDate.setDate(targetDate.getDate() + 3)
+  targetDate.setHours(0, 0, 0, 0)
+
+  const targetDateEnd = new Date(targetDate)
+  targetDateEnd.setDate(targetDateEnd.getDate() + 1)
+
+  const { data: invoices } = await supabase
+    .from('invoices')
+    .select('*, user:users(email, name)')
+    .eq('status', 'sent')
+    .eq('reminder_status', 'sent_7d')
+    .gte('due_date', targetDate.toISOString())
+    .lt('due_date', targetDateEnd.toISOString())
+
+  if (invoices && invoices.length > 0) {
+    console.log(`Processing ${invoices.length} invoices for 3-day reminder`)
+    for (const invoice of invoices) {
+      await sendInvoiceReminderWithPDF(invoice, 3)
+    }
+  }
+}
+
+async function processInvoice1DayReminders() {
+  const targetDate = new Date()
+  targetDate.setDate(targetDate.getDate() + 1)
+  targetDate.setHours(0, 0, 0, 0)
+
+  const targetDateEnd = new Date(targetDate)
+  targetDateEnd.setDate(targetDateEnd.getDate() + 1)
+
+  const { data: invoices } = await supabase
+    .from('invoices')
+    .select('*, user:users(email, name)')
+    .eq('status', 'sent')
+    .eq('reminder_status', 'sent_3d')
+    .gte('due_date', targetDate.toISOString())
+    .lt('due_date', targetDateEnd.toISOString())
+
+  if (invoices && invoices.length > 0) {
+    console.log(`Processing ${invoices.length} invoices for 1-day reminder`)
+    for (const invoice of invoices) {
+      await sendInvoiceReminderWithPDF(invoice, 1)
+    }
+  }
+}
+
+async function suspendUsersWithOverdueInvoices() {
+  const now = new Date()
+
+  const { data: overdueInvoices } = await supabase
+    .from('invoices')
+    .select('*, user:users(id, email, name, is_active)')
+    .eq('status', 'sent')
+    .lt('due_date', now.toISOString())
+
+  if (overdueInvoices && overdueInvoices.length > 0) {
+    console.log(`Processing ${overdueInvoices.length} overdue invoices for suspension`)
+
+    for (const invoice of overdueInvoices) {
+      await supabase
+        .from('invoices')
+        .update({ status: 'overdue' })
+        .eq('id', invoice.id)
+
+      if (invoice.user.is_active) {
+        await supabase
+          .from('users')
+          .update({
+            is_active: false,
+            suspended_at: now.toISOString(),
+            suspension_reason: 'overdue_invoice'
+          })
+          .eq('id', invoice.user.id)
+
+        try {
+          const { sendAccountSuspendedEmail } = await import('../lib/email.js')
+          await sendAccountSuspendedEmail(
+            invoice.user.email,
+            invoice.user.name,
+            {
+              invoiceNumber: invoice.invoice_number,
+              dueDate: invoice.due_date,
+              amountDue: invoice.amount,
+              currency: invoice.currency
+            }
+          )
+          console.log(`Suspension email sent to ${invoice.user.email}`)
+        } catch (emailError) {
+          console.error(`Failed to send suspension email to ${invoice.user.email}:`, emailError)
+        }
+
+        console.log(`User ${invoice.user.email} suspended for overdue invoice ${invoice.invoice_number}`)
+      }
+    }
+  }
+}
+
+router.get('/invoice-reminders', async (req, res) => {
+  try {
+    console.log('Running invoice reminder cron jobs...')
+
+    await processInvoice14DayReminders()
+    await processInvoice7DayReminders()
+    await processInvoice3DayReminders()
+    await processInvoice1DayReminders()
+    await suspendUsersWithOverdueInvoices()
+
+    res.json({
+      message: 'Invoice reminder jobs completed',
+      timestamp: new Date().toISOString()
+    })
+  } catch (error) {
+    console.error('Invoice reminder cron error:', error)
+    res.status(500).json({ error: 'Internal server error' })
+  }
+})
+
 export default router

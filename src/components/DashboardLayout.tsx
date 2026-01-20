@@ -19,6 +19,7 @@ import {
   Calculator,
   ChevronLeft,
   ChevronRight,
+  FileText,
   LogOut,
   Maximize,
   Menu,
@@ -44,6 +45,10 @@ const getNavigationItems = (t: (key: string) => string) => ({
   superadmin: [
     { name: t('navigation.dashboard'), href: '/dashboard/superadmin', icon: BarChart3 },
     { name: t('navigation.userManagement'), href: '/dashboard/superadmin/users', icon: Users },
+    { name: t('navigation.trialManagement'), href: '/dashboard/superadmin/trial-management', icon: User },
+    { name: t('navigation.manualActivation'), href: '/dashboard/superadmin/manual-activation', icon: FileText },
+    { name: t('navigation.invoiceManagement'), href: '/dashboard/superadmin/invoices', icon: FileText },
+    { name: t('navigation.auditLogs'), href: '/dashboard/superadmin/audit-logs', icon: FileText },
     { name: 'Orders', href: '/dashboard/superadmin/orders', icon: ShoppingBag },
     { name: t('navigation.analytics'), href: '/dashboard/superadmin/analytics', icon: BarChart3 },
     { name: t('navigation.settings'), href: '/dashboard/superadmin/settings', icon: Settings }
@@ -106,6 +111,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
   const getPageTitle = () => {
     const path = location.pathname
+    if (path.includes('/superadmin/trial-management')) return 'Trial Management'
+    if (path.includes('/superadmin/manual-activation')) return 'Manual Activation'
+    if (path.includes('/superadmin/invoices')) return 'Invoice Management'
+    if (path.includes('/superadmin/audit-logs')) return 'Audit Logs'
     if (path.includes('/superadmin')) return `${t('roles.superadmin')} ${t('common.dashboard')}`
     if (path.includes('/admin')) return `${t('roles.admin')} ${t('common.dashboard')}`
     if (path.includes('/warehouse')) return `${t('roles.warehouse')} ${t('common.dashboard')}`

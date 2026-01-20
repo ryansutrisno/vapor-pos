@@ -3,6 +3,7 @@ import express from 'express'
 import { supabase } from '../lib/supabase'
 import crypto from 'crypto'
 import { z } from 'zod'
+import { sendWelcomeEmail, sendReactivationEmail } from '../lib/email.js'
 
 const router = express.Router()
 
@@ -150,12 +151,8 @@ async function createTenantUser(orderData: any): Promise<{ user: any; password: 
       })
       .eq('id', orderData.id)
 
-    // TODO: Send welcome email with login credentials
-    console.log(`Tenant created for order ${orderData.id}:`, {
-      email: orderData.email,
-      password: password,
-      userId: authData.user.id
-    })
+    const loginUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/login`
+    await sendWelcomeEmail(orderData.email, orderData.customer_name, password, loginUrl)
 
     return { user: userData, password }
   } catch (error) {
@@ -577,7 +574,8 @@ async function reactivateTrialUser(orderId: string): Promise<void> {
     
     // Send welcome back email
     try {
-      await sendReactivationEmail(user.email, user.name, order.plan_type, order.billing_cycle)
+      const loginUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/login`
+      await sendReactivationEmail(user.email, user.name, order.plan_type, order.billing_cycle, loginUrl)
     } catch (emailError) {
       console.error('Error sending reactivation email:', emailError)
       // Don't fail the reactivation if email fails
@@ -585,22 +583,6 @@ async function reactivateTrialUser(orderId: string): Promise<void> {
     
   } catch (error) {
     console.error(`Error reactivating trial user for order ${orderId}:`, error)
-    throw error
-  }
-}
-
-// Helper function to send reactivation email
-async function sendReactivationEmail(email: string, name: string, planType: string, billingCycle: string): Promise<void> {
-  try {
-    // This would use the same SendGrid configuration as other emails
-    // For now, just log that we would send an email
-    console.log(`Would send reactivation email to ${email} for plan ${planType} (${billingCycle})`)
-    
-    // TODO: Implement actual email sending using SendGrid
-    // Similar to the verification email implementation
-    
-  } catch (error) {
-    console.error('Error sending reactivation email:', error)
     throw error
   }
 }
