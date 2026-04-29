@@ -64,10 +64,10 @@ services:
       - postgres
 
   studio:
-    image: supabase/studio:0.24.0
+    image: supabase/studio:20250102-0a8e98c
     container_name: vapor-pos-studio
     ports:
-      - "8000:8000"
+      - "8001:3000"
     environment:
       - STUDIO_PG_META_URL=http://postgres:8080
       - POSTGRES_PASSWORD=postgres

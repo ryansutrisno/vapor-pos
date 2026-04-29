@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker compose up *)",
+      "Bash(docker compose *)",
+      "Bash(docker rm *)",
+      "Bash(pnpm dev *)",
+      "Bash(npm --version)",
+      "Bash(./node_modules/.bin/vite *)",
+      "Bash(./node_modules/.bin/nodemon *)",
+      "Bash(lsof -ti:3001)",
+      "Bash(xargs kill *)"
+    ]
+  }
+}
