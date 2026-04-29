@@ -17,7 +17,7 @@ import auditRoutes from './routes/audit.js';
 import logger from './lib/logger.js';
 import { captureException } from './lib/sentry.js';
 import { swaggerSpec } from './lib/swagger.js';
-import { createRequestMetadata, metadataToJSON } from './lib/metadata.js';
+import { createRequestMetadata } from './lib/metadata.js';
 
 
 // load env
@@ -58,7 +58,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     req.path,
     req.headers.referer
   );
-  (req as any).requestMetadata = metadata;
+  (req as Request & { requestMetadata?: ReturnType<typeof createRequestMetadata> }).requestMetadata = metadata;
   next();
 });
 

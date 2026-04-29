@@ -2,7 +2,7 @@
  * Admin API routes for user management operations
  * Requires superadmin authentication
  */
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 
@@ -36,7 +36,7 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 /**
  * Middleware to verify user authentication and superadmin role
  */
-const verifySuperAdmin = async (req: Request, res: Response, next: any) => {
+const verifySuperAdmin = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -445,7 +445,7 @@ router.post('/trial-users/:id/extend', verifySuperAdmin, async (req: Request, re
   try {
     const { id } = req.params;
     const { days, reason } = req.body;
-    const adminId = (req as any).user?.id;
+    const adminId = (req as Request & { user?: { id: string } }).user?.id;
 
     if (!days || days <= 0) {
       return res.status(400).json({
@@ -556,7 +556,7 @@ router.post('/trial-users/:id/reduce', verifySuperAdmin, async (req: Request, re
   try {
     const { id } = req.params;
     const { days, reason } = req.body;
-    const adminId = (req as any).user?.id;
+    const adminId = (req as Request & { user?: { id: string } }).user?.id;
 
     if (!days || days <= 0) {
       return res.status(400).json({
@@ -632,7 +632,7 @@ router.post('/trial-users/:id/cancel', verifySuperAdmin, async (req: Request, re
   try {
     const { id } = req.params;
     const { reason } = req.body;
-    const adminId = (req as any).user?.id;
+    const adminId = (req as Request & { user?: { id: string } }).user?.id;
 
     // Get user info
     const { data: user, error: userError } = await supabase
@@ -727,7 +727,7 @@ router.post('/users/create-paid', verifySuperAdmin, async (req: Request, res: Re
       notes
     } = req.body;
 
-    const adminId = (req as any).user?.id;
+    const adminId = (req as Request & { user?: { id: string } }).user?.id;
 
     // Validate required fields
     if (!email || !password || !name || !store_name || !role || !subscription_plan || !billing_cycle) {
@@ -793,8 +793,8 @@ router.post('/users/create-paid', verifySuperAdmin, async (req: Request, res: Re
       .eq('id', userId)
       .single();
 
-    // Get admin for notification
-    const { data: adminUser } = await supabase
+    // Get admin for notification (unused but logged for audit)
+    const { data: _adminUser } = await supabase
       .from('users')
       .select('email, name')
       .eq('id', adminId)
@@ -834,7 +834,7 @@ router.post('/users/:id/activate', verifySuperAdmin, async (req: Request, res: R
   try {
     const { id } = req.params;
     const { subscription_plan, billing_cycle, payment_method, payment_reference, notes } = req.body;
-    const adminId = (req as any).user?.id;
+    const adminId = (req as Request & { user?: { id: string } }).user?.id;
 
     // Validate plan
     const validPlans = ['single_store', 'multi_store_5', 'multi_store_20', 'multi_store_unlimited'];

@@ -17,7 +17,7 @@ const mockUser = {
 }
 
 const createQueryBuilder = () => {
-  const query: Record<string, any> = {}
+  const query: Record<string, unknown> = {}
   const methods = ['select', 'insert', 'update', 'delete', 'eq', 'neq', 'gt', 'gte', 'lt', 'lte', 'like', 'ilike', 'in', 'is', 'or', 'order', 'range', 'single', 'maybeSingle']
   methods.forEach(method => {
     query[method] = vi.fn().mockReturnValue(query)

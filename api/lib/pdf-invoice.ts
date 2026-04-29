@@ -1,7 +1,7 @@
 import PDFDocument from 'pdfkit';
 import { supabase } from './supabase';
 
-interface InvoiceData {
+export interface InvoiceData {
   invoiceNumber: string;
   companyName: string;
   companyAddress: string;
