@@ -54,14 +54,15 @@ describe('Trial Registration API', () => {
     const mockSupabase = {
       from: vi.fn((table: string) => {
         if (table === 'users') {
-          return {
+          const chain = {
             select: vi.fn().mockReturnThis(),
             eq: vi.fn().mockReturnThis(),
             single: vi.fn().mockResolvedValue({ data: null, error: null }),
-            insert: vi.fn().mockResolvedValue({ data: mockUser, error: null }),
+            insert: vi.fn(() => ({ ...chain, select: vi.fn().mockReturnThis(), single: vi.fn().mockResolvedValue({ data: mockUser, error: null }) })),
             update: vi.fn().mockResolvedValue({ error: null }),
             then: vi.fn()
           }
+          return chain
         }
         if (table === 'settings') {
           return {
