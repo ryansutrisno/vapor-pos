@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { AuditLogFilters, getAuditActionTypes, getAuditableEntityTypes } from '../lib/audit';
+import { getAuditActionTypes, getAuditableEntityTypes } from '../lib/audit';
+import type { AuditLogFilters as AuditLogFiltersType } from '../lib/audit';
 
 interface AuditLogFiltersProps {
-  filters: AuditLogFilters;
-  onFiltersChange: (filters: AuditLogFilters) => void;
+  filters: AuditLogFiltersType;
+  onFiltersChange: (filters: AuditLogFiltersType) => void;
   onExport: () => void;
 }
 
@@ -13,7 +14,7 @@ export function AuditLogFilters({ filters, onFiltersChange, onExport }: AuditLog
   const actionTypes = getAuditActionTypes();
   const entityTypes = getAuditableEntityTypes();
 
-  const handleChange = (key: keyof AuditLogFilters, value: string) => {
+  const handleChange = (key: keyof AuditLogFiltersType, value: string) => {
     onFiltersChange({
       ...filters,
       [key]: value || undefined,
