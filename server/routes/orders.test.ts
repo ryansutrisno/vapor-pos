@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import request from 'supertest'
 import express from 'express'
+import crypto from 'crypto'
 
 const mockOrder = {
   id: 'ord-001',
@@ -25,13 +26,42 @@ const mockOrder = {
 }
 
 const createQueryBuilder = () => {
-  const query: Record<string, any> = {}
-  const methods = ['select', 'insert', 'update', 'delete', 'eq', 'neq', 'gt', 'gte', 'lt', 'lte', 'like', 'ilike', 'in', 'is', 'or', 'order', 'range', 'single', 'maybeSingle']
+  const query: any = {}
+  let isSingle = false
+  const methods = ['select', 'insert', 'update', 'delete', 'eq', 'neq', 'gt', 'gte', 'lt', 'lte', 'like', 'ilike', 'in', 'is', 'or', 'order', 'range', 'maybeSingle']
   methods.forEach(method => {
-    query[method] = vi.fn().mockReturnValue(query)
+    query[method] = vi.fn().mockImplementation(() => query)
+  })
+  query.single = vi.fn().mockImplementation(() => {
+    isSingle = true
+    return query
   })
   query.count = { exact: 1 }
-  query.then = vi.fn()
+  query.then = vi.fn().mockImplementation((onFulfilled) => {
+    const result = isSingle ? { data: mockOrder, error: null } : { data: [mockOrder], error: null }
+    return Promise.resolve(onFulfilled ? onFulfilled(result) : result)
+  })
+  return query
+}
+
+const createQueryBuilderForUsers = () => {
+  const query: any = {}
+  let isInsert = false
+  const methods = ['select', 'delete', 'eq', 'neq', 'gt', 'gte', 'lt', 'lte', 'like', 'ilike', 'in', 'is', 'or', 'order', 'range', 'single', 'maybeSingle', 'update']
+  methods.forEach(method => {
+    query[method] = vi.fn().mockImplementation(() => query)
+  })
+  query.insert = vi.fn().mockImplementation(() => {
+    isInsert = true
+    return query
+  })
+  query.count = { exact: 1 }
+  query.then = vi.fn().mockImplementation((onFulfilled) => {
+    const result = isInsert 
+      ? { data: { id: 'new-user-id' }, error: null }
+      : { data: null, error: { code: 'PGRST116' } }
+    return Promise.resolve(onFulfilled ? onFulfilled(result) : result)
+  })
   return query
 }
 
@@ -39,19 +69,10 @@ vi.mock('../lib/supabase', () => ({
   supabase: {
     from: vi.fn((table: string) => {
       if (table === 'orders') {
-        return {
-          ...createQueryBuilder(),
-          single: vi.fn().mockResolvedValue({ data: mockOrder, error: null }),
-          order: vi.fn().mockResolvedValue({ data: [mockOrder], error: null })
-        }
+        return createQueryBuilder()
       }
       if (table === 'users') {
-        return {
-          ...createQueryBuilder(),
-          single: vi.fn().mockResolvedValue({ data: null, error: { code: 'PGRST116' } }),
-          update: vi.fn().mockResolvedValue({ error: null }),
-          insert: vi.fn().mockResolvedValue({ data: { id: 'new-user-id' }, error: null })
-        }
+        return createQueryBuilderForUsers()
       }
       return createQueryBuilder()
     }),
@@ -67,6 +88,15 @@ vi.mock('../lib/supabase', () => ({
 }))
 
 vi.mock('crypto', () => ({
+  default: {
+    randomBytes: vi.fn((size: number) => Buffer.alloc(size)),
+    createHash: vi.fn().mockReturnValue({
+      update: vi.fn().mockReturnValue({
+        digest: vi.fn().mockReturnValue('mock-signature')
+      })
+    }),
+    randomUUID: vi.fn(() => 'test-uuid-1234-5678-9012')
+  },
   randomBytes: vi.fn((size: number) => Buffer.alloc(size)),
   createHash: vi.fn().mockReturnValue({
     update: vi.fn().mockReturnValue({
@@ -84,6 +114,14 @@ describe('Orders API', () => {
     vi.clearAllMocks()
     vi.stubEnv('MIDTRANS_SERVER_KEY', 'test-server-key')
     vi.stubEnv('MIDTRANS_IS_PRODUCTION', 'false')
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+      ok: true,
+      json: vi.fn().mockResolvedValue({
+        token: 'mock-midtrans-token-123',
+        redirect_url: 'https://sandbox.midtrans.com/snap/v2/vtweb/mock-token',
+        transaction_id: 'mock-midtrans-trans-id'
+      })
+    }))
 
     const ordersRoutes = (await import('../routes/orders')).default
 
@@ -95,6 +133,7 @@ describe('Orders API', () => {
   afterEach(() => {
     vi.restoreAllMocks()
     vi.unstubAllEnvs()
+    vi.unstubAllGlobals()
   })
 
   describe('POST /api/orders', () => {
@@ -290,7 +329,6 @@ describe('Midtrans Integration', () => {
     }
     const serverKey = 'test-server-key'
 
-    const crypto = require('crypto')
     const signatureKey = crypto
       .createHash('sha512')
       .update(data.order_id + data.status_code + data.gross_amount + serverKey)

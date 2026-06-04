@@ -61,18 +61,6 @@ export function InvoiceManagementPage() {
 
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
-  if (!user || user.role !== 'superadmin') {
-    return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="bg-white p-8 rounded-lg shadow-md text-center">
-          <AlertCircle className="w-16 h-16 mx-auto text-red-500 mb-4" />
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">Akses Ditolak</h2>
-          <p className="text-gray-500">Hanya superadmin yang dapat mengakses halaman ini.</p>
-        </div>
-      </div>
-    );
-  }
-
   const fetchInvoices = useCallback(async () => {
     try {
       setLoading(true);
@@ -125,9 +113,23 @@ export function InvoiceManagementPage() {
   }, [API_URL]);
 
   useEffect(() => {
-    fetchInvoices();
-    fetchStats();
-  }, [fetchInvoices, fetchStats]);
+    if (user && user.role === 'superadmin') {
+      fetchInvoices();
+      fetchStats();
+    }
+  }, [fetchInvoices, fetchStats, user]);
+
+  if (!user || user.role !== 'superadmin') {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="bg-white p-8 rounded-lg shadow-md text-center">
+          <AlertCircle className="w-16 h-16 mx-auto text-red-500 mb-4" />
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Akses Ditolak</h2>
+          <p className="text-gray-500">Hanya superadmin yang dapat mengakses halaman ini.</p>
+        </div>
+      </div>
+    );
+  }
 
   const handleMarkAsPaid = async (invoiceId: string, paymentMethod: string) => {
     try {
