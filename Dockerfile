@@ -23,8 +23,9 @@ RUN npm install -g pnpm tsx
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/server ./server
 COPY --from=builder /app/api ./api
 
 EXPOSE 3001
 
-CMD ["npx", "tsx", "api/app.ts"]
+CMD ["npx", "tsx", "server/server.ts"]
