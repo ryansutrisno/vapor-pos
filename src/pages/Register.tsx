@@ -132,17 +132,17 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-background border-b border-border">
+      <header className="bg-background/80 backdrop-blur-md border-b border-border/50 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <Link to='/'>
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+              <div className="flex items-center space-x-2 group">
+                <div className="w-8 h-8 bg-primary rounded-2xl flex items-center justify-center transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] group-hover:scale-[1.08]">
                   <Store className="w-5 h-5 text-primary-foreground" />
                 </div>
-                <span className="text-2xl font-bold">VaporaPOS</span>
+                <span className="text-2xl font-bold text-foreground">VaporaPOS</span>
               </div>
             </Link>
             <div className="flex items-center space-x-4">
@@ -150,7 +150,7 @@ export default function Register() {
               <LanguageToggle />
               <Link
                 to="/login"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="text-muted-foreground hover:text-foreground transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] hover:bg-primary/10 px-3 py-1.5 rounded-full"
               >
                 {t('auth.signIn')}
               </Link>
@@ -160,50 +160,55 @@ export default function Register() {
       </header>
 
       {/* Registration Form */}
-      <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <Card className="w-full max-w-md">
+      <div className="relative overflow-hidden flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        {/* Organic blur shapes */}
+        <div className="w-80 h-80 bg-primary/15 rounded-full blur-3xl absolute -top-20 -right-20" aria-hidden="true" />
+        <div className="w-64 h-64 bg-secondary/20 rounded-full blur-3xl absolute bottom-10 -left-20" aria-hidden="true" />
+        <div className="w-48 h-48 bg-[var(--md-tertiary)]/10 rounded-full blur-3xl absolute top-1/2 right-1/4" aria-hidden="true" />
+
+        <Card className="w-full max-w-lg shadow-lg relative z-10">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold">{t('register.title')}</CardTitle>
+            <CardTitle className="text-3xl font-bold text-foreground">{t('register.title')}</CardTitle>
+            {/* Decorative accent line */}
+            <div className="mx-auto mt-2 mb-1 w-12 h-1 rounded-full bg-primary/60" aria-hidden="true" />
             <CardDescription>{t('register.subtitle')}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Name */}
-              <div className="space-y-2">
-                <Label htmlFor="name">{t('register.fullName')}</Label>
-                <div className="relative">
-                  <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="name"
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => handleInputChange('name', e.target.value)}
-                    placeholder={t('register.fullNamePlaceholder')}
-                    className="pl-10"
-                  />
-                </div>
+              <div className="space-y-1">
+                <Label htmlFor="name" className="flex items-center gap-1.5">
+                  <User className="h-4 w-4 text-muted-foreground" />
+                  {t('register.fullName')}
+                </Label>
+                <Input
+                  id="name"
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={(e) => handleInputChange('name', e.target.value)}
+                  placeholder={t('register.fullNamePlaceholder')}
+                />
               </div>
 
               {/* Email */}
-              <div className="space-y-2">
-                <Label htmlFor="email">{t('auth.email')}</Label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="email"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
-                    placeholder={t('register.emailPlaceholder')}
-                    className="pl-10"
-                  />
-                </div>
+              <div className="space-y-1">
+                <Label htmlFor="email" className="flex items-center gap-1.5">
+                  <Mail className="h-4 w-4 text-muted-foreground" />
+                  {t('auth.email')}
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) => handleInputChange('email', e.target.value)}
+                  placeholder={t('register.emailPlaceholder')}
+                />
               </div>
 
               {/* Password */}
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <Label htmlFor="password">{t('auth.password')}</Label>
                 <div className="relative">
                   <Input
@@ -218,7 +223,7 @@ export default function Register() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-3 h-4 w-4 text-muted-foreground hover:text-foreground"
+                    className="absolute right-3 top-4 h-4 w-4 text-muted-foreground hover:text-foreground transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)]"
                   >
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
@@ -226,7 +231,7 @@ export default function Register() {
               </div>
 
               {/* Confirm Password */}
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <Label htmlFor="confirmPassword">{t('register.confirmPassword')}</Label>
                 <div className="relative">
                   <Input
@@ -241,7 +246,7 @@ export default function Register() {
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-3 h-4 w-4 text-muted-foreground hover:text-foreground"
+                    className="absolute right-3 top-4 h-4 w-4 text-muted-foreground hover:text-foreground transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)]"
                   >
                     {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
@@ -249,59 +254,56 @@ export default function Register() {
               </div>
 
               {/* Company */}
-              <div className="space-y-2">
-                <Label htmlFor="company">{t('register.companyName')}</Label>
-                <div className="relative">
-                  <Building className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="company"
-                    type="text"
-                    required
-                    value={formData.company}
-                    onChange={(e) => handleInputChange('company', e.target.value)}
-                    placeholder={t('register.companyPlaceholder')}
-                    className="pl-10"
-                  />
-                </div>
+              <div className="space-y-1">
+                <Label htmlFor="company" className="flex items-center gap-1.5">
+                  <Building className="h-4 w-4 text-muted-foreground" />
+                  {t('register.companyName')}
+                </Label>
+                <Input
+                  id="company"
+                  type="text"
+                  required
+                  value={formData.company}
+                  onChange={(e) => handleInputChange('company', e.target.value)}
+                  placeholder={t('register.companyPlaceholder')}
+                />
               </div>
 
               {/* Phone */}
-              <div className="space-y-2">
-                <Label htmlFor="phone">{t('register.phoneNumber')}</Label>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="phone"
-                    type="tel"
-                    required
-                    value={formData.phone}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
-                    placeholder={t('register.phonePlaceholder')}
-                    className="pl-10"
-                  />
-                </div>
+              <div className="space-y-1">
+                <Label htmlFor="phone" className="flex items-center gap-1.5">
+                  <Phone className="h-4 w-4 text-muted-foreground" />
+                  {t('register.phoneNumber')}
+                </Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  required
+                  value={formData.phone}
+                  onChange={(e) => handleInputChange('phone', e.target.value)}
+                  placeholder={t('register.phonePlaceholder')}
+                />
               </div>
 
               {/* Address */}
-              <div className="space-y-2">
-                <Label htmlFor="address">{t('register.address')}</Label>
-                <div className="relative">
-                  <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="address"
-                    type="text"
-                    value={formData.address}
-                    onChange={(e) => handleInputChange('address', e.target.value)}
-                    placeholder={t('register.addressPlaceholder')}
-                    className="pl-10"
-                  />
-                </div>
+              <div className="space-y-1">
+                <Label htmlFor="address" className="flex items-center gap-1.5">
+                  <MapPin className="h-4 w-4 text-muted-foreground" />
+                  {t('register.address')}
+                </Label>
+                <Input
+                  id="address"
+                  type="text"
+                  value={formData.address}
+                  onChange={(e) => handleInputChange('address', e.target.value)}
+                  placeholder={t('register.addressPlaceholder')}
+                />
               </div>
 
               {/* Submit Button */}
               <Button
                 type="submit"
-                className="w-full"
+                className="w-full h-12 active:scale-95 transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)]"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? t('register.processing') : t('register.startTrial')}
@@ -312,15 +314,15 @@ export default function Register() {
             <div className="mt-6 text-center">
               <p className="text-sm text-muted-foreground">
                 {t('register.alreadyHaveAccount')}{' '}
-                <Link to="/login" className="font-medium text-primary hover:underline">
+                <Link to="/login" className="font-medium text-primary hover:underline transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)]">
                   {t('auth.signIn')}
                 </Link>
               </p>
             </div>
 
             {/* Trial Info */}
-            <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-950 rounded-lg">
-              <p className="text-sm text-blue-700 dark:text-blue-300 text-center">
+            <div className="mt-4 p-4 bg-secondary rounded-3xl">
+              <p className="text-sm text-secondary-foreground text-center">
                 {t('register.trialInfo')}
               </p>
             </div>

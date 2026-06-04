@@ -143,21 +143,28 @@ export default function Order() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <div className="min-h-screen bg-background">
+      {/* Organic blur shapes */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute top-1/3 -left-32 w-[400px] h-[400px] rounded-full bg-secondary/15 blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-[350px] h-[350px] rounded-full bg-primary/5 blur-3xl" />
+      </div>
+
       {/* Navigation */}
-      <nav className="border-b bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50">
+      <nav className="bg-background/80 backdrop-blur-md border-b border-border/50 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
-              <Link to="/" className="flex items-center space-x-2 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">
+              <Link to="/" className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors duration-300">
                 <ArrowLeft className="w-4 h-4" />
                 <span>{t('common.back')}</span>
               </Link>
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                  <Store className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 bg-primary rounded-2xl flex items-center justify-center">
+                  <Store className="w-5 h-5 text-primary-foreground" />
                 </div>
-                <span className="text-xl font-bold text-slate-900 dark:text-white">VaporaPOS</span>
+                <span className="text-xl font-medium text-foreground">VaporaPOS</span>
               </div>
             </div>
             <div className="flex items-center space-x-4">
@@ -170,37 +177,45 @@ export default function Order() {
         </div>
       </nav>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative">
+        {/* Page Title Area */}
+        <div className="text-center mb-12 relative">
+          {/* Decorative organic shape behind title */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+            <div className="w-[300px] h-[120px] rounded-full bg-primary/8 blur-3xl" />
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 relative">
             {t('order.title')}
           </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-300">
+          <p className="text-lg text-muted-foreground relative">
             {t('order.subtitle')}
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Plan Selection */}
-          <div>
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">{t('order.selectPlan')}</h2>
+          <div className="relative">
+            {/* Subtle blur shapes behind plan cards */}
+            <div className="absolute -top-8 -left-8 w-[200px] h-[200px] rounded-full bg-secondary/10 blur-3xl pointer-events-none" aria-hidden="true" />
 
-            {/* Billing Toggle */}
-            <div className="flex items-center justify-center space-x-4 mb-8 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
+            <h2 className="text-2xl font-medium text-foreground mb-6 relative">{t('order.selectPlan')}</h2>
+
+            {/* Billing Toggle - Pill-shaped */}
+            <div className="flex items-center justify-center mb-8 bg-muted rounded-full p-1">
               <button
                 onClick={() => setBillingCycle('monthly')}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${billingCycle === 'monthly'
-                  ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ease-md ${billingCycle === 'monthly'
+                  ? 'bg-primary text-primary-foreground shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
                   }`}
               >
                 {t('common.monthly')}
               </button>
               <button
                 onClick={() => setBillingCycle('yearly')}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${billingCycle === 'yearly'
-                  ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ease-md ${billingCycle === 'yearly'
+                  ? 'bg-primary text-primary-foreground shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
                   }`}
               >
                 {t('common.yearly')}
@@ -208,31 +223,31 @@ export default function Order() {
               </button>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4 relative">
               {pricingPlans.map((plan) => (
                 <Card
                   key={plan.id}
-                  className={`cursor-pointer transition-all ${selectedPlan === plan.id
-                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/20'
-                    : 'hover:border-slate-300 dark:hover:border-slate-600'
+                  className={`cursor-pointer group transition-all duration-300 ease-md ${selectedPlan === plan.id
+                    ? 'ring-2 ring-primary bg-primary/5 shadow-md'
+                    : 'hover:shadow-md hover:scale-[1.01]'
                     }`}
                   onClick={() => setSelectedPlan(plan.id)}
                 >
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between">
                       <div>
-                        <CardTitle className="text-lg">{plan.name}</CardTitle>
+                        <CardTitle className="text-lg group-hover:text-primary transition-colors duration-300">{plan.name}</CardTitle>
                         <CardDescription>{plan.description}</CardDescription>
                       </div>
                       <div className="text-right">
-                        <div className="text-2xl font-bold text-slate-900 dark:text-white">
+                        <div className="text-2xl font-bold text-foreground">
                           {formatPrice(billingCycle === 'monthly' ? plan.monthlyPrice : plan.yearlyPrice)}
                         </div>
-                        <div className="text-sm text-slate-500">
+                        <div className="text-sm text-muted-foreground">
                           /{billingCycle === 'monthly' ? t('common.month') : t('common.year')}
                         </div>
                         {billingCycle === 'yearly' && (
-                          <div className="text-xs text-slate-500 line-through">
+                          <div className="text-xs text-muted-foreground line-through">
                             {formatPrice(plan.originalYearlyPrice)}/{t('common.year')}
                           </div>
                         )}
@@ -241,13 +256,13 @@ export default function Order() {
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-2">
-                      <li className="flex items-center text-sm">
-                        <Check className="w-4 h-4 text-green-500 mr-2" />
+                      <li className="flex items-center text-sm text-foreground">
+                        <Check className="w-4 h-4 text-green-500 mr-2 shrink-0" />
                         {t('common.maximum')} {plan.maxStores} {typeof plan.maxStores === 'number' ? t('common.store') : ''}
                       </li>
                       {plan.features.slice(0, 3).map((feature, index) => (
-                        <li key={index} className="flex items-center text-sm">
-                          <Check className="w-4 h-4 text-green-500 mr-2" />
+                        <li key={index} className="flex items-center text-sm text-foreground">
+                          <Check className="w-4 h-4 text-green-500 mr-2 shrink-0" />
                           {feature}
                         </li>
                       ))}
@@ -259,10 +274,10 @@ export default function Order() {
           </div>
 
           {/* Order Form */}
-          <div>
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">{t('order.orderInfo')}</h2>
+          <div className="relative">
+            <h2 className="text-2xl font-medium text-foreground mb-6">{t('order.orderInfo')}</h2>
 
-            <Card>
+            <Card className="shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <CreditCard className="w-5 h-5 mr-2" />
@@ -348,35 +363,35 @@ export default function Order() {
                   </div>
 
                   {/* Order Summary */}
-                  <div className="border-t pt-4 mt-6">
-                    <h3 className="font-semibold text-slate-900 dark:text-white mb-3">{t('order.orderSummary')}</h3>
+                  <div className="bg-muted/50 rounded-3xl p-6 mt-6">
+                    <h3 className="font-medium text-foreground mb-3">{t('order.orderSummary')}</h3>
                     <div className="space-y-2">
-                      <div className="flex justify-between">
+                      <div className="flex justify-between text-foreground">
                         <span>{t('order.package')}</span>
                         <span className="font-medium">{selectedPlanData.name}</span>
                       </div>
-                      <div className="flex justify-between">
+                      <div className="flex justify-between text-foreground">
                         <span>{t('order.period')}</span>
                         <span className="font-medium">{billingCycle === 'monthly' ? t('common.monthly') : t('common.yearly')}</span>
                       </div>
                       {billingCycle === 'yearly' && (
-                        <div className="flex justify-between text-green-600">
+                        <div className="flex justify-between text-green-600 dark:text-green-400">
                           <span>{t('order.discount')}</span>
                           <span className="font-medium">
                             -{formatPrice(selectedPlanData.originalYearlyPrice - selectedPlanData.yearlyPrice)}
                           </span>
                         </div>
                       )}
-                      <div className="flex justify-between text-lg font-bold border-t pt-2">
-                        <span>{t('order.total')}</span>
-                        <span>{formatPrice(totalAmount)}</span>
+                      <div className="flex justify-between border-t border-border/50 pt-3 mt-3">
+                        <span className="text-lg font-medium text-foreground">{t('order.total')}</span>
+                        <span className="text-2xl font-bold text-primary">{formatPrice(totalAmount)}</span>
                       </div>
                     </div>
                   </div>
 
                   <Button
                     type="submit"
-                    className="w-full"
+                    className="w-full h-14 text-lg active:scale-95 transition-all duration-300 ease-md"
                     size="lg"
                     disabled={isSubmitting}
                   >

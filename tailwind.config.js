@@ -14,6 +14,9 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['Roboto', 'system-ui', '-apple-system', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -48,11 +51,41 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        /* Material You extended palette */
+        md: {
+          primary: "var(--md-primary)",
+          "on-primary": "var(--md-on-primary)",
+          "primary-container": "var(--md-primary-container)",
+          secondary: "var(--md-secondary)",
+          "secondary-container": "var(--md-secondary-container)",
+          "on-secondary-container": "var(--md-on-secondary-container)",
+          tertiary: "var(--md-tertiary)",
+          "tertiary-container": "var(--md-tertiary-container)",
+          surface: "var(--md-surface)",
+          "surface-container": "var(--md-surface-container)",
+          "surface-container-low": "var(--md-surface-container-low)",
+          "on-surface": "var(--md-on-surface)",
+          "on-surface-variant": "var(--md-on-surface-variant)",
+          outline: "var(--md-outline)",
+          "outline-variant": "var(--md-outline-variant)",
+        },
       },
       borderRadius: {
+        "4xl": "2rem",
+        "5xl": "2.5rem",
+        "6xl": "3rem",
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        "md-1": "0 1px 2px 0 rgba(0,0,0,0.05)",
+        "md-2": "0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1)",
+        "md-3": "0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)",
+        "md-4": "0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)",
+      },
+      transitionTimingFunction: {
+        "md": "cubic-bezier(0.2, 0, 0, 1)",
       },
       keyframes: {
         "accordion-down": {

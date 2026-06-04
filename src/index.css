@@ -1,51 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+    /* === Material You Tonal Palette (Purple/Violet Seed #6750A4) === */
+
+    /* shadcn compatibility tokens (mapped to MD3 values) */
+    --background: 270 20% 99%;       /* #FFFBFE - Surface */
+    --foreground: 270 10% 11%;       /* #1C1B1F - On Surface */
+    --card: 270 30% 96%;             /* #F3EDF7 - Surface Container */
+    --card-foreground: 270 10% 11%;
+    --popover: 270 30% 96%;
+    --popover-foreground: 270 10% 11%;
+    --primary: 267 39% 48%;          /* #6750A4 - Primary */
+    --primary-foreground: 0 0% 100%; /* #FFFFFF */
+    --secondary: 270 50% 93%;        /* #E8DEF8 - Secondary Container */
+    --secondary-foreground: 270 25% 14%; /* #1D192B */
+    --muted: 270 25% 91%;            /* #E7E0EC - Surface Container Low */
+    --muted-foreground: 270 6% 29%;  /* #49454F - On Surface Variant */
+    --accent: 270 50% 93%;
+    --accent-foreground: 270 25% 14%;
+    --destructive: 0 75% 42%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 270 4% 49%;            /* #79747E - Outline */
+    --input: 270 25% 91%;            /* Same as muted for filled inputs */
+    --ring: 267 39% 48%;             /* Same as primary */
+    --radius: 0.75rem;
+
+    /* === MD3-specific extended tokens === */
+    --md-primary: #6750A4;
+    --md-on-primary: #FFFFFF;
+    --md-primary-container: #EADDFF;
+    --md-secondary: #625B71;
+    --md-secondary-container: #E8DEF8;
+    --md-on-secondary-container: #1D192B;
+    --md-tertiary: #7D5260;
+    --md-tertiary-container: #FFD8E4;
+    --md-surface: #FFFBFE;
+    --md-surface-container: #F3EDF7;
+    --md-surface-container-low: #E7E0EC;
+    --md-on-surface: #1C1B1F;
+    --md-on-surface-variant: #49454F;
+    --md-outline: #79747E;
+    --md-outline-variant: #CAC4D0;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 84% 4.9%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 94.1%;
+    --background: 270 30% 7%;        /* Dark surface */
+    --foreground: 270 20% 92%;
+    --card: 270 20% 12%;             /* Dark surface container */
+    --card-foreground: 270 20% 92%;
+    --popover: 270 20% 12%;
+    --popover-foreground: 270 20% 92%;
+    --primary: 270 100% 82%;         /* #D0BCFF - Primary (dark) */
+    --primary-foreground: 270 50% 20%;
+    --secondary: 270 30% 80%;
+    --secondary-foreground: 270 25% 14%;
+    --muted: 270 15% 18%;
+    --muted-foreground: 270 10% 70%;
+    --accent: 270 30% 80%;
+    --accent-foreground: 270 25% 14%;
+    --destructive: 0 60% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 270 10% 30%;
+    --input: 270 15% 18%;
+    --ring: 270 100% 82%;
+
+    --md-primary: #D0BCFF;
+    --md-on-primary: #381E72;
+    --md-primary-container: #4F378B;
+    --md-secondary: #CCC2DC;
+    --md-secondary-container: #4A4458;
+    --md-on-secondary-container: #E8DEF8;
+    --md-tertiary: #EFB8C8;
+    --md-tertiary-container: #633B48;
+    --md-surface: #141218;
+    --md-surface-container: #211F26;
+    --md-surface-container-low: #1D1B20;
+    --md-on-surface: #E6E0E9;
+    --md-on-surface-variant: #CAC4D0;
+    --md-outline: #938F99;
+    --md-outline-variant: #49454F;
   }
 }
 
@@ -55,16 +93,31 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-:root {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  line-height: 1.5;
-  font-weight: 400;
+/* MD3 Material You easing */
+@layer utilities {
+  .ease-md {
+    transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  }
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
