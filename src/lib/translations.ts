@@ -1423,7 +1423,7 @@ export const translations: Record<'id' | 'en', TranslationData> = {
       selectPlan: 'Pilih Paket',
       ctaTitle: 'Siap Mengembangkan Bisnis Vapor Anda?',
       ctaSubtitle:
-        'Bergabung dengan ribuan pemilik toko vapor yang sudah mempercayai VaporaPos',
+        'Bergabung dengan ribuan pemilik toko vapor yang sudah mempercayai VaporPos',
       startNowFree: 'Mulai Sekarang - Gratis 14 Hari',
       footerDescription: 'Sistem POS terdepan untuk bisnis vapor di Indonesia',
       product: 'Produk',
@@ -1433,18 +1433,18 @@ export const translations: Record<'id' | 'en', TranslationData> = {
     },
     faq: {
       title: 'Pertanyaan yang Sering Diajukan',
-      subtitle: 'Temukan jawaban untuk pertanyaan umum tentang VaporaPos',
+      subtitle: 'Temukan jawaban untuk pertanyaan umum tentang VaporPos',
       questions: {
         q1: {
-          question: 'Apa itu VaporaPos dan bagaimana cara kerjanya?',
-          answer: 'VaporaPos adalah sistem Point of Sale (POS) yang dirancang khusus untuk bisnis vapor dan vape shop. Sistem ini membantu Anda mengelola inventory, penjualan, pelanggan, dan laporan bisnis dalam satu platform yang terintegrasi. Anda dapat mengakses sistem dari mana saja melalui cloud-based platform kami.'
+          question: 'Apa itu VaporPos dan bagaimana cara kerjanya?',
+          answer: 'VaporPos adalah sistem Point of Sale (POS) yang dirancang khusus untuk bisnis vapor dan vape shop. Sistem ini membantu Anda mengelola inventory, penjualan, pelanggan, dan laporan bisnis dalam satu platform yang terintegrasi. Anda dapat mengakses sistem dari mana saja melalui cloud-based platform kami.'
         },
         q2: {
-          question: 'Apakah VaporaPos mendukung multiple toko?',
-          answer: 'Ya, VaporaPos mendukung multi-store management. Anda dapat mengelola hingga 5, 20, atau unlimited cabang toko tergantung paket yang dipilih. Semua data akan tersinkronisasi secara real-time antar cabang.'
+          question: 'Apakah VaporPos mendukung multiple toko?',
+          answer: 'Ya, VaporPos mendukung multi-store management. Anda dapat mengelola hingga 5, 20, atau unlimited cabang toko tergantung paket yang dipilih. Semua data akan tersinkronisasi secara real-time antar cabang.'
         },
         q3: {
-          question: 'Bagaimana sistem keamanan data di VaporaPos?',
+          question: 'Bagaimana sistem keamanan data di VaporPos?',
           answer: 'Kami menggunakan enkripsi tingkat enterprise dan backup otomatis untuk menjaga keamanan data Anda. Semua data disimpan di cloud server yang aman dengan sertifikasi keamanan internasional. Akses data juga dilindungi dengan sistem role-based access control.'
         },
         q4: {
@@ -1456,7 +1456,7 @@ export const translations: Record<'id' | 'en', TranslationData> = {
           answer: 'Kami menyediakan support 24/7 melalui berbagai channel: live chat, email, dan WhatsApp. Tim support kami terdiri dari ahli yang berpengalaman dalam industri vapor dan sistem POS. Kami juga menyediakan dokumentasi lengkap dan video tutorial.'
         },
         q6: {
-          question: 'Bisakah VaporaPos terintegrasi dengan sistem lain?',
+          question: 'Bisakah VaporPos terintegrasi dengan sistem lain?',
           answer: 'Belum, kami masih mengembangkan untuk integrasi dengan sistem lain yang menunjang kebutuhan dengan sistem bisnis Anda.'
         }
       }
@@ -1555,7 +1555,7 @@ export const translations: Record<'id' | 'en', TranslationData> = {
       },
     },
     order: {
-      title: 'Pilih Paket VaporaPos',
+      title: 'Pilih Paket VaporPos',
       subtitle: 'Mulai transformasi digital bisnis vapor Anda hari ini',
       selectPlan: 'Pilih Paket',
       orderInfo: 'Informasi Pemesanan',
@@ -1591,7 +1591,7 @@ export const translations: Record<'id' | 'en', TranslationData> = {
     },
     register: {
       title: 'Daftar Trial Gratis',
-      subtitle: 'Mulai trial 14 hari gratis VaporaPos sekarang',
+      subtitle: 'Mulai trial 14 hari gratis VaporPos sekarang',
       fullName: 'Nama Lengkap',
       fullNamePlaceholder: 'Masukkan nama lengkap Anda',
       emailPlaceholder: 'Masukkan alamat email Anda',
@@ -1607,7 +1607,7 @@ export const translations: Record<'id' | 'en', TranslationData> = {
       startTrial: 'Mulai Trial Gratis',
       processing: 'Memproses...',
       alreadyHaveAccount: 'Sudah punya akun?',
-      trialInfo: '🎉 Trial gratis 14 hari tanpa perlu kartu kredit. Akses penuh ke semua fitur VaporaPos!',
+      trialInfo: '🎉 Trial gratis 14 hari tanpa perlu kartu kredit. Akses penuh ke semua fitur VaporPos!',
       nameRequired: 'Nama lengkap wajib diisi',
       emailRequired: 'Email wajib diisi',
       emailInvalid: 'Format email tidak valid',
@@ -2690,7 +2690,7 @@ export const translations: Record<'id' | 'en', TranslationData> = {
       mostPopular: 'Most Popular',
       selectPlan: 'Select Plan',
       ctaTitle: 'Ready to Grow Your Vapor Business?',
-      ctaSubtitle: 'Join thousands of vapor store owners who trust VaporaPos',
+      ctaSubtitle: 'Join thousands of vapor store owners who trust VaporPos',
       startNowFree: 'Start Now - Free for 14 Days',
       footerDescription: 'Leading POS system for vapor business in Indonesia',
       product: 'Product',
@@ -2700,18 +2700,18 @@ export const translations: Record<'id' | 'en', TranslationData> = {
     },
     faq: {
       title: 'Frequently Asked Questions',
-      subtitle: 'Find answers to common questions about VaporaPos',
+      subtitle: 'Find answers to common questions about VaporPos',
       questions: {
         q1: {
-          question: 'What is VaporaPos and how does it work?',
-          answer: 'VaporaPos is a Point of Sale (POS) system specifically designed for vapor and vape shop businesses. This system helps you manage inventory, sales, customers, and business reports in one integrated platform. You can access the system from anywhere through our cloud-based platform.'
+          question: 'What is VaporPos and how does it work?',
+          answer: 'VaporPos is a Point of Sale (POS) system specifically designed for vapor and vape shop businesses. This system helps you manage inventory, sales, customers, and business reports in one integrated platform. You can access the system from anywhere through our cloud-based platform.'
         },
         q2: {
-          question: 'Does VaporaPos support multiple stores?',
-          answer: 'Yes, VaporaPos supports multi-store management. You can manage up to 5, 20, or unlimited store branches depending on the package you choose. All data will be synchronized in real-time across branches.'
+          question: 'Does VaporPos support multiple stores?',
+          answer: 'Yes, VaporPos supports multi-store management. You can manage up to 5, 20, or unlimited store branches depending on the package you choose. All data will be synchronized in real-time across branches.'
         },
         q3: {
-          question: 'How is data security in VaporaPos?',
+          question: 'How is data security in VaporPos?',
           answer: 'We use enterprise-level encryption and automatic backup to keep your data secure. All data is stored on secure cloud servers with international security certifications. Data access is also protected with role-based access control system.'
         },
         q4: {
@@ -2723,7 +2723,7 @@ export const translations: Record<'id' | 'en', TranslationData> = {
           answer: 'We provide 24/7 support through various channels: live chat, email, and WhatsApp. Our support team consists of experts experienced in the vapor industry and POS systems. We also provide complete documentation and video tutorials.'
         },
         q6: {
-          question: 'Can VaporaPos integrate with other systems?',
+          question: 'Can VaporPos integrate with other systems?',
           answer: 'Not yet, we are still developing integration with other systems that support your business needs.'
         }
       }
@@ -2822,7 +2822,7 @@ export const translations: Record<'id' | 'en', TranslationData> = {
       },
     },
     order: {
-      title: 'Choose VaporaPos Package',
+      title: 'Choose VaporPos Package',
       subtitle: 'Start your vapor business digital transformation today',
       selectPlan: 'Select Plan',
       orderInfo: 'Order Information',
@@ -2858,7 +2858,7 @@ export const translations: Record<'id' | 'en', TranslationData> = {
     },
     register: {
       title: 'Start Free Trial',
-      subtitle: 'Start your 14-day free VaporaPOS trial now',
+      subtitle: 'Start your 14-day free VaporPOS trial now',
       fullName: 'Full Name',
       fullNamePlaceholder: 'Enter your full name',
       emailPlaceholder: 'Enter your email address',
@@ -2874,7 +2874,7 @@ export const translations: Record<'id' | 'en', TranslationData> = {
       startTrial: 'Start Free Trial',
       processing: 'Processing...',
       alreadyHaveAccount: 'Already have an account?',
-      trialInfo: '🎉 14-day free trial with no credit card required. Full access to all VaporaPos features!',
+      trialInfo: '🎉 14-day free trial with no credit card required. Full access to all VaporPos features!',
       nameRequired: 'Full name is required',
       emailRequired: 'Email is required',
       emailInvalid: 'Invalid email format',

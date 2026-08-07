@@ -160,7 +160,7 @@ export default function Order() {
               <div className="w-8 h-8 bg-primary rounded-2xl flex items-center justify-center transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] group-hover:scale-[1.08]">
                 <Store className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="text-2xl font-bold text-foreground">VaporaPOS</span>
+              <span className="text-2xl font-bold text-foreground">VaporPOS</span>
             </Link>
             <div className="flex items-center space-x-4">
               <ThemeToggle />

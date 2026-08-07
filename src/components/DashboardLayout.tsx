@@ -166,7 +166,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <span className="text-primary-foreground font-bold text-sm">VP</span>
             </div>
             {!sidebarCollapsed && (
-              <span className="text-xl font-bold">Vapora POS</span>
+              <span className="text-xl font-bold">Vapor POS</span>
             )}
           </div>
           <div className="flex items-center space-x-1">

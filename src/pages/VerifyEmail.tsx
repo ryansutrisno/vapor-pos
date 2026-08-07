@@ -180,7 +180,7 @@ export default function VerifyEmail() {
                 <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                   <Store className="w-5 h-5 text-primary-foreground" />
                 </div>
-                <span className="text-2xl font-bold">VaporaPOS</span>
+                <span className="text-2xl font-bold">VaporPOS</span>
               </div>
             </Link>
             <div className="flex items-center space-x-4">

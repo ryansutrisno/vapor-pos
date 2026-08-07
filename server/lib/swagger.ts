@@ -9,7 +9,7 @@ const options = {
       description: 'Point of Sale API dengan multi-tenant support',
       contact: {
         name: 'API Support',
-        email: 'support@vaporapos.com'
+        email: 'support@vaporpos.com'
       }
     },
     servers: [
