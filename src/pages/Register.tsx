@@ -132,11 +132,11 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="h-screen flex flex-col overflow-hidden bg-background">
       {/* Header */}
       <header className="bg-background/80 backdrop-blur-md border-b border-border/50 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
+          <div className="flex justify-between items-center py-4">
             <Link to='/'>
               <div className="flex items-center space-x-2 group">
                 <div className="w-8 h-8 bg-primary rounded-2xl flex items-center justify-center transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] group-hover:scale-[1.08]">
@@ -160,147 +160,154 @@ export default function Register() {
       </header>
 
       {/* Registration Form */}
-      <div className="relative overflow-hidden flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="relative overflow-hidden flex-1 flex items-center justify-center py-4 px-4 sm:px-6 lg:px-8">
         {/* Organic blur shapes */}
         <div className="w-80 h-80 bg-primary/15 rounded-full blur-3xl absolute -top-20 -right-20" aria-hidden="true" />
         <div className="w-64 h-64 bg-secondary/20 rounded-full blur-3xl absolute bottom-10 -left-20" aria-hidden="true" />
         <div className="w-48 h-48 bg-[var(--md-tertiary)]/10 rounded-full blur-3xl absolute top-1/2 right-1/4" aria-hidden="true" />
 
-        <Card className="w-full max-w-lg shadow-lg relative z-10">
-          <CardHeader className="text-center">
-            <CardTitle className="text-3xl font-bold text-foreground">{t('register.title')}</CardTitle>
+        <Card className="w-full max-w-3xl shadow-lg relative z-10">
+          <CardHeader className="text-center pb-2">
+            <CardTitle className="text-2xl font-bold text-foreground">{t('register.title')}</CardTitle>
             {/* Decorative accent line */}
             <div className="mx-auto mt-2 mb-1 w-12 h-1 rounded-full bg-primary/60" aria-hidden="true" />
             <CardDescription>{t('register.subtitle')}</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2">
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Name */}
-              <div className="space-y-1">
-                <Label htmlFor="name" className="flex items-center gap-1.5">
-                  <User className="h-4 w-4 text-muted-foreground" />
-                  {t('register.fullName')}
-                </Label>
-                <Input
-                  id="name"
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) => handleInputChange('name', e.target.value)}
-                  placeholder={t('register.fullNamePlaceholder')}
-                />
-              </div>
-
-              {/* Email */}
-              <div className="space-y-1">
-                <Label htmlFor="email" className="flex items-center gap-1.5">
-                  <Mail className="h-4 w-4 text-muted-foreground" />
-                  {t('auth.email')}
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                  placeholder={t('register.emailPlaceholder')}
-                />
-              </div>
-
-              {/* Password */}
-              <div className="space-y-1">
-                <Label htmlFor="password">{t('auth.password')}</Label>
-                <div className="relative">
+              {/* Two-column grid for fields */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                {/* Name */}
+                <div className="space-y-1">
+                  <Label htmlFor="name" className="flex items-center gap-1.5">
+                    <User className="h-4 w-4 text-muted-foreground" />
+                    {t('register.fullName')} <span className="text-destructive">*</span>
+                  </Label>
                   <Input
-                    id="password"
-                    type={showPassword ? 'text' : 'password'}
+                    id="name"
+                    type="text"
                     required
-                    value={formData.password}
-                    onChange={(e) => handleInputChange('password', e.target.value)}
-                    placeholder={t('register.passwordPlaceholder')}
-                    className="pr-10"
+                    value={formData.name}
+                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    placeholder={t('register.fullNamePlaceholder')}
                   />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-4 h-4 w-4 text-muted-foreground hover:text-foreground transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)]"
-                  >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </button>
+                </div>
+
+                {/* Password */}
+                <div className="space-y-1">
+                  <Label htmlFor="password" className="flex items-center gap-1.5">
+                    {t('auth.password')} <span className="text-destructive">*</span>
+                  </Label>
+                  <div className="relative">
+                    <Input
+                      id="password"
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                      value={formData.password}
+                      onChange={(e) => handleInputChange('password', e.target.value)}
+                      placeholder={t('register.passwordPlaceholder')}
+                      className="pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-4 h-4 w-4 text-muted-foreground hover:text-foreground transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)]"
+                    >
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div className="space-y-1">
+                  <Label htmlFor="email" className="flex items-center gap-1.5">
+                    <Mail className="h-4 w-4 text-muted-foreground" />
+                    {t('auth.email')} <span className="text-destructive">*</span>
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    placeholder={t('register.emailPlaceholder')}
+                  />
+                </div>
+
+                {/* Confirm Password */}
+                <div className="space-y-1">
+                  <Label htmlFor="confirmPassword" className="flex items-center gap-1.5">
+                    {t('register.confirmPassword')} <span className="text-destructive">*</span>
+                  </Label>
+                  <div className="relative">
+                    <Input
+                      id="confirmPassword"
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      required
+                      value={formData.confirmPassword}
+                      onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
+                      placeholder={t('register.confirmPasswordPlaceholder')}
+                      className="pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-3 top-4 h-4 w-4 text-muted-foreground hover:text-foreground transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)]"
+                    >
+                      {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Company */}
+                <div className="space-y-1">
+                  <Label htmlFor="company" className="flex items-center gap-1.5">
+                    <Building className="h-4 w-4 text-muted-foreground" />
+                    {t('register.companyName')} <span className="text-destructive">*</span>
+                  </Label>
+                  <Input
+                    id="company"
+                    type="text"
+                    required
+                    value={formData.company}
+                    onChange={(e) => handleInputChange('company', e.target.value)}
+                    placeholder={t('register.companyPlaceholder')}
+                  />
+                </div>
+
+                {/* Address (optional - no asterisk) */}
+                <div className="space-y-1">
+                  <Label htmlFor="address" className="flex items-center gap-1.5">
+                    <MapPin className="h-4 w-4 text-muted-foreground" />
+                    {t('register.address')}
+                  </Label>
+                  <Input
+                    id="address"
+                    type="text"
+                    value={formData.address}
+                    onChange={(e) => handleInputChange('address', e.target.value)}
+                    placeholder={t('register.addressPlaceholder')}
+                  />
+                </div>
+
+                {/* Phone */}
+                <div className="space-y-1">
+                  <Label htmlFor="phone" className="flex items-center gap-1.5">
+                    <Phone className="h-4 w-4 text-muted-foreground" />
+                    {t('register.phoneNumber')} <span className="text-destructive">*</span>
+                  </Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    required
+                    value={formData.phone}
+                    onChange={(e) => handleInputChange('phone', e.target.value)}
+                    placeholder={t('register.phonePlaceholder')}
+                  />
                 </div>
               </div>
 
-              {/* Confirm Password */}
-              <div className="space-y-1">
-                <Label htmlFor="confirmPassword">{t('register.confirmPassword')}</Label>
-                <div className="relative">
-                  <Input
-                    id="confirmPassword"
-                    type={showConfirmPassword ? 'text' : 'password'}
-                    required
-                    value={formData.confirmPassword}
-                    onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-                    placeholder={t('register.confirmPasswordPlaceholder')}
-                    className="pr-10"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-4 h-4 w-4 text-muted-foreground hover:text-foreground transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)]"
-                  >
-                    {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </button>
-                </div>
-              </div>
-
-              {/* Company */}
-              <div className="space-y-1">
-                <Label htmlFor="company" className="flex items-center gap-1.5">
-                  <Building className="h-4 w-4 text-muted-foreground" />
-                  {t('register.companyName')}
-                </Label>
-                <Input
-                  id="company"
-                  type="text"
-                  required
-                  value={formData.company}
-                  onChange={(e) => handleInputChange('company', e.target.value)}
-                  placeholder={t('register.companyPlaceholder')}
-                />
-              </div>
-
-              {/* Phone */}
-              <div className="space-y-1">
-                <Label htmlFor="phone" className="flex items-center gap-1.5">
-                  <Phone className="h-4 w-4 text-muted-foreground" />
-                  {t('register.phoneNumber')}
-                </Label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  required
-                  value={formData.phone}
-                  onChange={(e) => handleInputChange('phone', e.target.value)}
-                  placeholder={t('register.phonePlaceholder')}
-                />
-              </div>
-
-              {/* Address */}
-              <div className="space-y-1">
-                <Label htmlFor="address" className="flex items-center gap-1.5">
-                  <MapPin className="h-4 w-4 text-muted-foreground" />
-                  {t('register.address')}
-                </Label>
-                <Input
-                  id="address"
-                  type="text"
-                  value={formData.address}
-                  onChange={(e) => handleInputChange('address', e.target.value)}
-                  placeholder={t('register.addressPlaceholder')}
-                />
-              </div>
-
-              {/* Submit Button */}
+              {/* Submit Button - full width */}
               <Button
                 type="submit"
                 className="w-full h-12 active:scale-95 transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)]"
@@ -311,7 +318,7 @@ export default function Register() {
             </form>
 
             {/* Login Link */}
-            <div className="mt-6 text-center">
+            <div className="mt-4 text-center">
               <p className="text-sm text-muted-foreground">
                 {t('register.alreadyHaveAccount')}{' '}
                 <Link to="/login" className="font-medium text-primary hover:underline transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)]">
@@ -321,7 +328,7 @@ export default function Register() {
             </div>
 
             {/* Trial Info */}
-            <div className="mt-4 p-4 bg-secondary rounded-3xl">
+            <div className="mt-3 p-3 bg-secondary rounded-3xl">
               <p className="text-sm text-secondary-foreground text-center">
                 {t('register.trialInfo')}
               </p>
