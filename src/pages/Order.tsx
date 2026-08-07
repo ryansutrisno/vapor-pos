@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { LanguageToggle } from '@/components/LanguageToggle'
+import { ThemeToggle } from '@/components/ThemeToggle'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -10,7 +11,7 @@ import { useTranslation } from '@/contexts/LanguageContext'
 import type { BillingCycle, PlanType } from '@/lib/supabase'
 import { showError, showSuccess } from '@/lib/toast'
 import { getPricingPlans } from '@/lib/translations'
-import { ArrowLeft, Check, CreditCard, Store } from 'lucide-react'
+import { Building, Check, CreditCard, Mail, MapPin, Phone, Store, User } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 
@@ -23,7 +24,7 @@ export default function Order() {
   // Set default plan from URL parameter
   useEffect(() => {
     const planParam = searchParams.get('plan') as PlanType
-    const validPlans: PlanType[] = ['single_store', 'multi_store_5', 'multi_store_20', 'multi_store_unlimited']
+    const validPlans: PlanType[] = ['single_store', 'multi_store_5', 'multi_store_20']
 
     if (planParam && validPlans.includes(planParam)) {
       setSelectedPlan(planParam)
@@ -39,7 +40,7 @@ export default function Order() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const pricingPlans = getPricingPlans(language)
+  const pricingPlans = getPricingPlans(language).slice(0, 3)
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('id-ID', {
@@ -152,22 +153,17 @@ export default function Order() {
       </div>
 
       {/* Navigation */}
-      <nav className="bg-background/80 backdrop-blur-md border-b border-border/50 sticky top-0 z-50">
+      <header className="bg-background/80 backdrop-blur-md border-b border-border/50 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
-              <Link to="/" className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors duration-300">
-                <ArrowLeft className="w-4 h-4" />
-                <span>{t('common.back')}</span>
-              </Link>
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-primary rounded-2xl flex items-center justify-center">
-                  <Store className="w-5 h-5 text-primary-foreground" />
-                </div>
-                <span className="text-xl font-medium text-foreground">VaporaPOS</span>
+          <div className="flex justify-between items-center py-4">
+            <Link to='/' className="flex items-center space-x-2 group">
+              <div className="w-8 h-8 bg-primary rounded-2xl flex items-center justify-center transition-all duration-300 ease-[cubic-bezier(0.2,0,0,1)] group-hover:scale-[1.08]">
+                <Store className="w-5 h-5 text-primary-foreground" />
               </div>
-            </div>
+              <span className="text-2xl font-bold text-foreground">VaporaPOS</span>
+            </Link>
             <div className="flex items-center space-x-4">
+              <ThemeToggle />
               <LanguageToggle />
               <Link to="/login">
                 <Button variant="ghost">{t('order.login')}</Button>
@@ -175,7 +171,7 @@ export default function Order() {
             </div>
           </div>
         </div>
-      </nav>
+      </header>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative">
         {/* Page Title Area */}
@@ -257,12 +253,12 @@ export default function Order() {
                   <CardContent>
                     <ul className="space-y-2">
                       <li className="flex items-center text-sm text-foreground">
-                        <Check className="w-4 h-4 text-green-500 mr-2 shrink-0" />
+                        <Check className="w-4 h-4 text-[hsl(var(--color-secondary))] mr-2 shrink-0" />
                         {t('common.maximum')} {plan.maxStores} {typeof plan.maxStores === 'number' ? t('common.store') : ''}
                       </li>
                       {plan.features.slice(0, 3).map((feature, index) => (
                         <li key={index} className="flex items-center text-sm text-foreground">
-                          <Check className="w-4 h-4 text-green-500 mr-2 shrink-0" />
+                          <Check className="w-4 h-4 text-[hsl(var(--color-secondary))] mr-2 shrink-0" />
                           {feature}
                         </li>
                       ))}
@@ -290,8 +286,11 @@ export default function Order() {
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="name">{t('order.fullName')}</Label>
+                    <div className="space-y-1">
+                      <Label htmlFor="name" className="flex items-center gap-1.5">
+                        <User className="h-4 w-4 text-muted-foreground" />
+                        {t('order.fullName')} <span className="text-destructive">*</span>
+                      </Label>
                       <Input
                         id="name"
                         type="text"
@@ -301,8 +300,11 @@ export default function Order() {
                         placeholder={t('order.fullNamePlaceholder')}
                       />
                     </div>
-                    <div>
-                      <Label htmlFor="email">{t('auth.email')} *</Label>
+                    <div className="space-y-1">
+                      <Label htmlFor="email" className="flex items-center gap-1.5">
+                        <Mail className="h-4 w-4 text-muted-foreground" />
+                        {t('auth.email')} <span className="text-destructive">*</span>
+                      </Label>
                       <Input
                         id="email"
                         type="email"
@@ -315,8 +317,11 @@ export default function Order() {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="company">{t('order.companyName')}</Label>
+                    <div className="space-y-1">
+                      <Label htmlFor="company" className="flex items-center gap-1.5">
+                        <Building className="h-4 w-4 text-muted-foreground" />
+                        {t('order.companyName')} <span className="text-destructive">*</span>
+                      </Label>
                       <Input
                         id="company"
                         type="text"
@@ -326,8 +331,11 @@ export default function Order() {
                         placeholder={t('order.companyPlaceholder')}
                       />
                     </div>
-                    <div>
-                      <Label htmlFor="phone">{t('order.phoneNumber')}</Label>
+                    <div className="space-y-1">
+                      <Label htmlFor="phone" className="flex items-center gap-1.5">
+                        <Phone className="h-4 w-4 text-muted-foreground" />
+                        {t('order.phoneNumber')} <span className="text-destructive">*</span>
+                      </Label>
                       <Input
                         id="phone"
                         type="tel"
@@ -339,8 +347,11 @@ export default function Order() {
                     </div>
                   </div>
 
-                  <div>
-                    <Label htmlFor="address">{t('order.fullAddress')}</Label>
+                  <div className="space-y-1">
+                    <Label htmlFor="address" className="flex items-center gap-1.5">
+                      <MapPin className="h-4 w-4 text-muted-foreground" />
+                      {t('order.fullAddress')} <span className="text-destructive">*</span>
+                    </Label>
                     <Textarea
                       id="address"
                       required
@@ -351,8 +362,10 @@ export default function Order() {
                     />
                   </div>
 
-                  <div>
-                    <Label htmlFor="notes">{t('order.additionalNotes')}</Label>
+                  <div className="space-y-1">
+                    <Label htmlFor="notes" className="flex items-center gap-1.5">
+                      {t('order.additionalNotes')}
+                    </Label>
                     <Textarea
                       id="notes"
                       value={formData.notes}
@@ -363,7 +376,7 @@ export default function Order() {
                   </div>
 
                   {/* Order Summary */}
-                  <div className="bg-muted/50 rounded-3xl p-6 mt-6">
+                  <div className="bg-secondary/50 rounded-2xl p-6 mt-6">
                     <h3 className="font-medium text-foreground mb-3">{t('order.orderSummary')}</h3>
                     <div className="space-y-2">
                       <div className="flex justify-between text-foreground">
@@ -375,7 +388,7 @@ export default function Order() {
                         <span className="font-medium">{billingCycle === 'monthly' ? t('common.monthly') : t('common.yearly')}</span>
                       </div>
                       {billingCycle === 'yearly' && (
-                        <div className="flex justify-between text-green-600 dark:text-green-400">
+                        <div className="flex justify-between text-[hsl(var(--color-secondary))]">
                           <span>{t('order.discount')}</span>
                           <span className="font-medium">
                             -{formatPrice(selectedPlanData.originalYearlyPrice - selectedPlanData.yearlyPrice)}
