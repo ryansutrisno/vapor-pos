@@ -15,9 +15,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Roboto', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       colors: {
+        // Semantic aliases retain dark-mode support for existing components.
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -51,23 +52,26 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        /* Material You extended palette */
-        md: {
-          primary: "var(--md-primary)",
-          "on-primary": "var(--md-on-primary)",
-          "primary-container": "var(--md-primary-container)",
-          secondary: "var(--md-secondary)",
-          "secondary-container": "var(--md-secondary-container)",
-          "on-secondary-container": "var(--md-on-secondary-container)",
-          tertiary: "var(--md-tertiary)",
-          "tertiary-container": "var(--md-tertiary-container)",
-          surface: "var(--md-surface)",
-          "surface-container": "var(--md-surface-container)",
-          "surface-container-low": "var(--md-surface-container-low)",
-          "on-surface": "var(--md-on-surface)",
-          "on-surface-variant": "var(--md-on-surface-variant)",
-          outline: "var(--md-outline)",
-          "outline-variant": "var(--md-outline-variant)",
+        // Direct design-system tokens for landing-page components.
+        "color-primary": "hsl(var(--color-primary))",
+        "color-primary-light": "hsl(var(--color-primary-light))",
+        "color-primary-dark": "hsl(var(--color-primary-dark))",
+        "color-secondary": "hsl(var(--color-secondary))",
+        "color-secondary-light": "hsl(var(--color-secondary-light))",
+        "color-accent": "hsl(var(--color-accent))",
+        "color-accent-light": "hsl(var(--color-accent-light))",
+        "color-bg": "hsl(var(--color-bg))",
+        "color-bg-alt": "hsl(var(--color-bg-alt))",
+        "color-surface": "hsl(var(--color-surface))",
+        "color-surface-alt": "hsl(var(--color-surface-alt))",
+        "color-text": "hsl(var(--color-text))",
+        "color-text-muted": "hsl(var(--color-text-muted))",
+        "color-text-light": "hsl(var(--color-text-light))",
+        "color-border": "hsl(var(--color-border))",
+        "color-border-light": "hsl(var(--color-border-light))",
+        surface: {
+          DEFAULT: "hsl(var(--color-surface))",
+          alt: "hsl(var(--color-surface-alt))",
         },
       },
       borderRadius: {

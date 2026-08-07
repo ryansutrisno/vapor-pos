@@ -73,14 +73,79 @@ export interface TranslationData {
     noAccess: string;
     orderNow: string;
   };
+  nav: {
+    features: string;
+    pricing: string;
+    testimonials: string;
+    faq: string;
+    cta: string;
+    signin: string;
+  };
   landing: {
+    hero: {
+      badge: string;
+      title: string;
+      subtitle: string;
+      cta_trial: string;
+      cta_demo: string;
+      dashboard_alt: string;
+    };
+    features: {
+      label: string;
+      title: string;
+      subtitle: string;
+      items: Array<{ icon: string; title: string; desc: string }>;
+    };
+    testimonials: {
+      label: string;
+      title: string;
+      subtitle: string;
+      items: Array<{ quote: string; name: string; shop: string; city: string }>;
+    };
+    pricing: {
+      label: string;
+      title: string;
+      subtitle: string;
+      monthly: string;
+      yearly: string;
+      save: string;
+      popular: string;
+      plans: Array<{
+        id: string;
+        name: string;
+        price: string;
+        period: string;
+        popular?: boolean;
+        features: string[];
+      }>;
+      cta: string;
+      contact: string;
+    };
+    showcase: {
+      label: string;
+      title: string;
+      subtitle: string;
+      items: Array<{ title: string; desc: string; alt: string }>;
+    };
+    faq: {
+      title: string;
+      subtitle: string;
+      items: Array<{ q: string; a: string }>;
+      support_text: string;
+      support_link: string;
+    };
+    cta: {
+      title: string;
+      subtitle: string;
+      cta_trial: string;
+      cta_demo: string;
+      trust: string;
+    };
     heroTitle: string;
     heroSubtitle: string;
     getStarted: string;
     tryFree: string;
     viewDemo: string;
-    features: string;
-    pricing: string;
     about: string;
     featuresTitle: string;
     featuresSubtitle: string;
@@ -175,6 +240,30 @@ export interface TranslationData {
     };
   };
   footer: {
+    brand_desc: string;
+    product: string;
+    product_links: {
+      features: string;
+      pricing: string;
+      showcase: string;
+      faq: string;
+    };
+    support: string;
+    support_links: {
+      help: string;
+      contact: string;
+      docs: string;
+    };
+    company: string;
+    company_links: {
+      about: string;
+      blog: string;
+      privacy: string;
+      terms: string;
+    };
+    copyright: string;
+  };
+  legacyFooter: {
     product: {
       title: string;
       items: string[];
@@ -1055,15 +1144,246 @@ export const translations: Record<'id' | 'en', TranslationData> = {
       noAccess: 'Belum punya akses?',
       orderNow: 'Pesan sekarang',
     },
+    nav: {
+      features: 'Fitur',
+      pricing: 'Harga',
+      testimonials: 'Testimoni',
+      faq: 'FAQ',
+      cta: 'Coba Gratis',
+      signin: 'Masuk',
+    },
     landing: {
+      hero: {
+        badge: '🇮🇩 Solusi POS #1 untuk Vape Shop',
+        title: 'Kelola Vape Shop Lebih Mudah & Profesional',
+        subtitle:
+          'Catat liquid, transaksi, dan laporan bisnis dalam satu dashboard. Dibuat khusus untuk pemilik vape shop di Indonesia.',
+        cta_trial: 'Coba Gratis 14 Hari',
+        cta_demo: 'Lihat Demo',
+        dashboard_alt: 'Tampilan dashboard VaporPOS',
+      },
+      features: {
+        label: 'FITUR UNGGULAN',
+        title: 'Semua yang Kamu Butuhkan untuk Vape Shop',
+        subtitle:
+          'Dari manajemen stok liquid sampai laporan keuangan, semua lengkap di VaporPOS.',
+        items: [
+          {
+            icon: 'Store',
+            title: 'Multi-Store',
+            desc:
+              'Kelola banyak cabang toko dari satu akun. Pantau stok dan penjualan tiap cabang secara real-time.',
+          },
+          {
+            icon: 'Package',
+            title: 'Katalog Produk',
+            desc:
+              'Atur device, liquid, peripheral, dan jasa rekondisi. Kategorisasi rapi dengan foto & harga.',
+          },
+          {
+            icon: 'Users',
+            title: 'Role-Based Access',
+            desc:
+              'Superadmin, admin, warehouse, kasir — setiap role punya akses sesuai tugasnya.',
+          },
+          {
+            icon: 'BarChart3',
+            title: 'Laporan & Analitik',
+            desc:
+              'Laporan penjualan harian, mingguan, bulanan. Pantau produk terlaris dan margin keuntungan.',
+          },
+          {
+            icon: 'Shield',
+            title: 'Keamanan Data',
+            desc:
+              'Data transaksi dan pelanggan aman dengan enkripsi. Backup otomatis ke cloud.',
+          },
+          {
+            icon: 'Cloud',
+            title: 'Cloud-Based',
+            desc:
+              'Akses dari mana saja — laptop, tablet, atau HP. Tidak perlu install server.',
+          },
+        ],
+      },
+      testimonials: {
+        label: 'TESTIMONIAL',
+        title: 'Dipercaya Ratusan Vape Shop di Indonesia',
+        subtitle:
+          'Dengerin langsung cerita dari pemilik vape shop yang udah pake VaporPOS.',
+        items: [
+          {
+            quote:
+              'Sebelum pakai VaporPOS, stok liquid suka selisih. Sekarang semua tercatat rapi, laporan juga tinggal klik. Recommended banget!',
+            name: 'Andi Pratama',
+            shop: 'AndiVape Store',
+            city: 'Jakarta',
+          },
+          {
+            quote:
+              'Fitur multi-store-nya juara. Saya punya 3 cabang dan semuanya bisa dipantau dari satu dashboard. Ga perlu bolak-balik toko lagi.',
+            name: 'Rina Susanti',
+            shop: 'Cloud9 Vapor',
+            city: 'Bandung',
+          },
+          {
+            quote:
+              'Support-nya fast response. Pas awal pindah dari catatan manual, tim VaporPOS bantu migrasi data sampai beres. Top!',
+            name: 'Budi Hartono',
+            shop: 'VapeKing',
+            city: 'Surabaya',
+          },
+        ],
+      },
+      pricing: {
+        label: 'HARGA',
+        title: 'Paket Harga yang Fleksibel',
+        subtitle:
+          'Mulai dari toko kecil sampai jaringan menengah, ada paket yang pas buat kamu.',
+        monthly: 'Bulanan',
+        yearly: 'Tahunan',
+        save: 'Hemat 17%',
+        popular: 'POPULER',
+        plans: [
+          {
+            id: 'single',
+            name: 'Toko Satuan',
+            price: '50K',
+            period: '/bln',
+            features: [
+              '1 toko',
+              '5 user akses',
+              'Produk tak terbatas',
+              'Laporan dasar',
+              'Support email',
+              'Cloud backup',
+            ],
+          },
+          {
+            id: 'multi5',
+            name: 'Multi Store 5',
+            price: '150K',
+            period: '/bln',
+            popular: true,
+            features: [
+              '5 toko',
+              '15 user akses',
+              'Produk tak terbatas',
+              'Laporan lanjutan',
+              'Multi-store dashboard',
+              'Support prioritas',
+              'Export data',
+              'Cloud backup',
+            ],
+          },
+          {
+            id: 'multi20',
+            name: 'Multi Store 20',
+            price: '250K',
+            period: '/bln',
+            features: [
+              '20 toko',
+              '50 user akses',
+              'Produk tak terbatas',
+              'Laporan advance',
+              'Analitik custom',
+              'Support prioritas 24/7',
+              'Export data',
+              'Cloud backup',
+            ],
+          },
+          {
+            id: 'enterprise',
+            name: 'Enterprise',
+            price: 'Custom',
+            period: '',
+            features: [
+              '>20 toko',
+              'User tak terbatas',
+              'Produk tak terbatas',
+              'Dedicated support',
+              'Custom integrasi',
+              'On-premise option',
+              'SLA guarantee',
+              'Priority feature request',
+            ],
+          },
+        ],
+        cta: 'Pilih Paket',
+        contact: 'Hubungi Kami',
+      },
+      showcase: {
+        label: 'TAMPILAN APLIKASI',
+        title: 'Dashboard yang Bersih & Mudah Digunakan',
+        subtitle:
+          'Antarmuka modern yang bikin operasional toko jadi lebih efisien.',
+        items: [
+          {
+            title: 'Dashboard Ringkasan',
+            desc:
+              'Pantau penjualan, stok, dan performa toko dalam satu layar. Grafik interaktif dan real-time update.',
+            alt: 'Dashboard ringkasan VaporPOS',
+          },
+          {
+            title: 'Manajemen Stok',
+            desc:
+              'Kelola ratusan SKU liquid, device, dan peripheral dengan mudah. Notifikasi stok menipis otomatis.',
+            alt: 'Manajemen stok VaporPOS',
+          },
+          {
+            title: 'Point of Sale',
+            desc:
+              'Transaksi cepat dengan interface yang intuitif. Dukung berbagai metode pembayaran dan cetak struk.',
+            alt: 'Point of sale VaporPOS',
+          },
+        ],
+      },
+      faq: {
+        title: 'Pertanyaan yang Sering Diajukan',
+        subtitle: 'Ada pertanyaan? Cek dulu di sini.',
+        items: [
+          {
+            q: 'Apa itu VaporPOS?',
+            a: 'VaporPOS adalah aplikasi Point of Sale (POS) berbasis cloud yang dirancang khusus untuk toko vape di Indonesia. Mulai dari pencatatan penjualan, manajemen stok liquid dan device, sampai laporan keuangan — semua dalam satu aplikasi.',
+          },
+          {
+            q: 'Apakah bisa untuk banyak cabang?',
+            a: 'Bisa banget! VaporPOS mendukung multi-store. Pantau stok, penjualan, dan performa setiap cabang dari satu dashboard.',
+          },
+          {
+            q: 'Seberapa aman data saya?',
+            a: 'Keamanan data adalah prioritas kami. Semua data dienkripsi, disimpan di server cloud yang aman, dan di-backup secara otomatis.',
+          },
+          {
+            q: 'Apa ada free trial?',
+            a: 'Ada! Kamu bisa coba VaporPOS gratis selama 14 hari. No credit card required — daftar langsung pakai.',
+          },
+          {
+            q: 'Gimana kalau saya butuh bantuan?',
+            a: 'Tim support kami siap bantu via WhatsApp, email, atau chat langsung dari dashboard. Response time rata-rata di bawah 1 jam.',
+          },
+          {
+            q: 'Apakah bisa integrasi dengan alat lain?',
+            a: 'Saat ini VaporPOS sudah mendukung Midtrans untuk pembayaran digital dan Fonnte untuk WhatsApp notification. Integrasi lain coming soon!',
+          },
+        ],
+        support_text: 'Masih ada pertanyaan?',
+        support_link: 'Hubungi Support',
+      },
+      cta: {
+        title: 'Siap Bawa Vape Shop Kamu ke Level Berikutnya?',
+        subtitle:
+          'Daftar sekarang dan nikmati 14 hari gratis. No credit card, batal kapan aja.',
+        cta_trial: 'Mulai Gratis 14 Hari',
+        cta_demo: 'Jadwalkan Demo',
+        trust: 'Tanpa kartu kredit • 14 hari gratis • Batal kapan aja',
+      },
       heroTitle: 'Sistem POS Terdepan untuk Bisnis Vapor',
       heroSubtitle:
         'Kelola toko vapor Anda dengan mudah. Dari device, liquid, peripheral hingga jasa recoil - semua dalam satu platform yang powerful dan user-friendly.',
       getStarted: 'Mulai Sekarang',
       tryFree: 'Coba Gratis 14 Hari',
       viewDemo: 'Lihat Demo',
-      features: 'Fitur',
-      pricing: 'Harga',
       about: 'Tentang',
       featuresTitle: 'Fitur Lengkap untuk Bisnis Vapor',
       featuresSubtitle:
@@ -1191,6 +1511,31 @@ export const translations: Record<'id' | 'en', TranslationData> = {
       },
     },
     footer: {
+      brand_desc:
+        'Solusi POS lengkap untuk vape shop di Indonesia. Kelola toko lebih mudah dengan VaporPOS.',
+      product: 'Produk',
+      product_links: {
+        features: 'Fitur',
+        pricing: 'Harga',
+        showcase: 'Tampilan',
+        faq: 'FAQ',
+      },
+      support: 'Bantuan',
+      support_links: {
+        help: 'Pusat Bantuan',
+        contact: 'Kontak',
+        docs: 'Dokumentasi',
+      },
+      company: 'Perusahaan',
+      company_links: {
+        about: 'Tentang',
+        blog: 'Blog',
+        privacy: 'Privasi',
+        terms: 'Syarat',
+      },
+      copyright: '© {year} VaporPOS. All rights reserved.',
+    },
+    legacyFooter: {
       product: {
         title: 'Produk',
         items: [
@@ -2074,15 +2419,242 @@ export const translations: Record<'id' | 'en', TranslationData> = {
       noAccess: 'Don\'t have access yet?',
       orderNow: 'Order now',
     },
+    nav: {
+      features: 'Features',
+      pricing: 'Pricing',
+      testimonials: 'Testimonials',
+      faq: 'FAQ',
+      cta: 'Try Free',
+      signin: 'Sign In',
+    },
     landing: {
+      hero: {
+        badge: '🇮🇩 #1 POS Solution for Vape Shops',
+        title: 'Manage Your Vape Shop Easier & More Professionally',
+        subtitle:
+          'Track liquids, transactions, and business reports in one dashboard. Built specifically for vape shop owners in Indonesia.',
+        cta_trial: 'Try Free 14 Days',
+        cta_demo: 'See Demo',
+        dashboard_alt: 'VaporPOS dashboard preview',
+      },
+      features: {
+        label: 'KEY FEATURES',
+        title: 'Everything You Need for Your Vape Shop',
+        subtitle:
+          'From liquid stock management to financial reports, all complete in VaporPOS.',
+        items: [
+          {
+            icon: 'Store',
+            title: 'Multi-Store',
+            desc:
+              'Manage multiple store branches from one account. Monitor stock and sales per branch in real-time.',
+          },
+          {
+            icon: 'Package',
+            title: 'Product Catalog',
+            desc:
+              'Organize devices, liquids, peripherals, and rebuild services. Clean categorization with photos & prices.',
+          },
+          {
+            icon: 'Users',
+            title: 'Role-Based Access',
+            desc:
+              'Superadmin, admin, warehouse, cashier — each role has access according to their tasks.',
+          },
+          {
+            icon: 'BarChart3',
+            title: 'Reports & Analytics',
+            desc:
+              'Daily, weekly, monthly sales reports. Track best-selling products and profit margins.',
+          },
+          {
+            icon: 'Shield',
+            title: 'Data Security',
+            desc:
+              'Transaction and customer data secure with encryption. Automatic cloud backup.',
+          },
+          {
+            icon: 'Cloud',
+            title: 'Cloud-Based',
+            desc:
+              'Access from anywhere — laptop, tablet, or phone. No server installation needed.',
+          },
+        ],
+      },
+      testimonials: {
+        label: 'TESTIMONIALS',
+        title: 'Trusted by Hundreds of Vape Shops in Indonesia',
+        subtitle: 'Hear directly from vape shop owners who use VaporPOS.',
+        items: [
+          {
+            quote:
+              'Before VaporPOS, liquid stock was always off. Now everything is neatly recorded, reports are just a click away. Highly recommended!',
+            name: 'Andi Pratama',
+            shop: 'AndiVape Store',
+            city: 'Jakarta',
+          },
+          {
+            quote:
+              'The multi-store feature is amazing. I have 3 branches and I can monitor all of them from one dashboard. No more store-hopping.',
+            name: 'Rina Susanti',
+            shop: 'Cloud9 Vapor',
+            city: 'Bandung',
+          },
+          {
+            quote:
+              'Their support is fast response. When I first switched from manual records, the VaporPOS team helped migrate my data until it was done. Top!',
+            name: 'Budi Hartono',
+            shop: 'VapeKing',
+            city: 'Surabaya',
+          },
+        ],
+      },
+      pricing: {
+        label: 'PRICING',
+        title: 'Flexible Pricing Plans',
+        subtitle: "From small shops to mid-size chains, there's a plan that fits you.",
+        monthly: 'Monthly',
+        yearly: 'Yearly',
+        save: 'Save 17%',
+        popular: 'POPULAR',
+        plans: [
+          {
+            id: 'single',
+            name: 'Single Store',
+            price: '50K',
+            period: '/mo',
+            features: [
+              '1 store',
+              '5 user access',
+              'Unlimited products',
+              'Basic reports',
+              'Email support',
+              'Cloud backup',
+            ],
+          },
+          {
+            id: 'multi5',
+            name: 'Multi Store 5',
+            price: '150K',
+            period: '/mo',
+            popular: true,
+            features: [
+              '5 stores',
+              '15 user access',
+              'Unlimited products',
+              'Advanced reports',
+              'Multi-store dashboard',
+              'Priority support',
+              'Data export',
+              'Cloud backup',
+            ],
+          },
+          {
+            id: 'multi20',
+            name: 'Multi Store 20',
+            price: '250K',
+            period: '/mo',
+            features: [
+              '20 stores',
+              '50 user access',
+              'Unlimited products',
+              'Advanced reports',
+              'Custom analytics',
+              '24/7 priority support',
+              'Data export',
+              'Cloud backup',
+            ],
+          },
+          {
+            id: 'enterprise',
+            name: 'Enterprise',
+            price: 'Custom',
+            period: '',
+            features: [
+              '>20 stores',
+              'Unlimited users',
+              'Unlimited products',
+              'Dedicated support',
+              'Custom integration',
+              'On-premise option',
+              'SLA guarantee',
+              'Priority feature request',
+            ],
+          },
+        ],
+        cta: 'Select Plan',
+        contact: 'Contact Us',
+      },
+      showcase: {
+        label: 'APP PREVIEW',
+        title: 'Clean & Easy-to-Use Dashboard',
+        subtitle: 'Modern interface that makes store operations more efficient.',
+        items: [
+          {
+            title: 'Dashboard Overview',
+            desc:
+              'Monitor sales, stock, and store performance on one screen. Interactive charts with real-time updates.',
+            alt: 'VaporPOS dashboard overview',
+          },
+          {
+            title: 'Stock Management',
+            desc:
+              'Manage hundreds of liquid, device, and peripheral SKUs easily. Automatic low-stock notifications.',
+            alt: 'VaporPOS stock management',
+          },
+          {
+            title: 'Point of Sale',
+            desc:
+              'Fast transactions with an intuitive interface. Supports multiple payment methods and receipt printing.',
+            alt: 'VaporPOS point of sale',
+          },
+        ],
+      },
+      faq: {
+        title: 'Frequently Asked Questions',
+        subtitle: 'Got questions? Check here first.',
+        items: [
+          {
+            q: 'What is VaporPOS?',
+            a: 'VaporPOS is a cloud-based Point of Sale (POS) application designed specifically for vape shops in Indonesia. From sales recording, liquid and device stock management, to financial reports — all in one app.',
+          },
+          {
+            q: 'Can I use it for multiple branches?',
+            a: 'Absolutely! VaporPOS supports multi-store. Monitor stock, sales, and performance of each branch from a single dashboard.',
+          },
+          {
+            q: 'How secure is my data?',
+            a: 'Data security is our priority. All data is encrypted, stored on secure cloud servers, and automatically backed up.',
+          },
+          {
+            q: 'Is there a free trial?',
+            a: 'Yes! You can try VaporPOS free for 14 days. No credit card required — sign up and start using immediately.',
+          },
+          {
+            q: 'What if I need help?',
+            a: 'Our support team is ready to help via WhatsApp, email, or live chat from the dashboard. Average response time under 1 hour.',
+          },
+          {
+            q: 'Can it integrate with other tools?',
+            a: 'VaporPOS currently supports Midtrans for digital payments and Fonnte for WhatsApp notifications. More integrations coming soon!',
+          },
+        ],
+        support_text: 'Still have questions?',
+        support_link: 'Contact Support',
+      },
+      cta: {
+        title: 'Ready to Take Your Vape Shop to the Next Level?',
+        subtitle: 'Sign up now and enjoy 14 days free. No credit card, cancel anytime.',
+        cta_trial: 'Start Free 14 Days',
+        cta_demo: 'Schedule a Demo',
+        trust: 'No credit card • 14 days free • Cancel anytime',
+      },
       heroTitle: 'Leading POS System for Vapor Business',
       heroSubtitle:
         'Manage your vapor store with ease. From devices, liquids, peripherals to recoil services - all in one powerful and user-friendly platform.',
       getStarted: 'Get Started',
       tryFree: 'Try Free for 14 Days',
       viewDemo: 'View Demo',
-      features: 'Features',
-      pricing: 'Pricing',
       about: 'About',
       featuresTitle: 'Complete Features for Vapor Business',
       featuresSubtitle: 'Everything you need to manage a modern vapor business',
@@ -2206,6 +2778,31 @@ export const translations: Record<'id' | 'en', TranslationData> = {
       },
     },
     footer: {
+      brand_desc:
+        'Complete POS solution for vape shops in Indonesia. Manage your store easier with VaporPOS.',
+      product: 'Product',
+      product_links: {
+        features: 'Features',
+        pricing: 'Pricing',
+        showcase: 'Preview',
+        faq: 'FAQ',
+      },
+      support: 'Support',
+      support_links: {
+        help: 'Help Center',
+        contact: 'Contact',
+        docs: 'Documentation',
+      },
+      company: 'Company',
+      company_links: {
+        about: 'About',
+        blog: 'Blog',
+        privacy: 'Privacy',
+        terms: 'Terms',
+      },
+      copyright: '© {year} VaporPOS. All rights reserved.',
+    },
+    legacyFooter: {
       product: {
         title: 'Product',
         items: [
@@ -3020,42 +3617,42 @@ export const translations: Record<'id' | 'en', TranslationData> = {
 export const getPricingPlans = (language: 'id' | 'en') => [
   {
     id: 'single_store' as const,
-    name: translations[language].pricing.singleStore.name,
-    description: translations[language].pricing.singleStore.description,
+    name: translations[language].landing.pricing.plans[0].name,
+    description: '',
     monthlyPrice: 50000,
     yearlyPrice: 500000,
     originalYearlyPrice: 600000,
     maxStores: 1,
-    features: translations[language].pricing.singleStore.features
+    features: translations[language].landing.pricing.plans[0].features,
   },
   {
     id: 'multi_store_5' as const,
-    name: translations[language].pricing.multiStore5.name,
-    description: translations[language].pricing.multiStore5.description,
+    name: translations[language].landing.pricing.plans[1].name,
+    description: '',
     monthlyPrice: 150000,
     yearlyPrice: 1500000,
     originalYearlyPrice: 1800000,
     maxStores: 5,
-    features: translations[language].pricing.multiStore5.features
+    features: translations[language].landing.pricing.plans[1].features,
   },
   {
     id: 'multi_store_20' as const,
-    name: translations[language].pricing.multiStore20.name,
-    description: translations[language].pricing.multiStore20.description,
+    name: translations[language].landing.pricing.plans[2].name,
+    description: '',
     monthlyPrice: 250000,
     yearlyPrice: 2500000,
     originalYearlyPrice: 3000000,
     maxStores: 20,
-    features: translations[language].pricing.multiStore20.features
+    features: translations[language].landing.pricing.plans[2].features,
   },
   {
     id: 'multi_store_unlimited' as const,
-    name: translations[language].pricing.enterprise.name,
-    description: translations[language].pricing.enterprise.description,
+    name: translations[language].landing.pricing.plans[3].name,
+    description: '',
     monthlyPrice: 350000,
     yearlyPrice: 3500000,
     originalYearlyPrice: 4200000,
     maxStores: translations[language].common.unlimited,
-    features: translations[language].pricing.enterprise.features
-  }
+    features: translations[language].landing.pricing.plans[3].features,
+  },
 ];

@@ -49,6 +49,7 @@
     "dotenv": "^17.2.1",
     "express": "^4.21.2",
     "express-rate-limit": "^8.2.1",
+    "framer-motion": "^13.0.0",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "jspdf": "^3.0.1",

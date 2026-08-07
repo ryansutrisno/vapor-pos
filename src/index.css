@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,84 +6,87 @@
 
 @layer base {
   :root {
-    /* === Material You Tonal Palette (Purple/Violet Seed #6750A4) === */
+    /* Brand Colors */
+    --color-primary: 251 79% 57%;       /* #6C5CE7 → vibrant purple */
+    --color-primary-light: 251 79% 65%;
+    --color-primary-dark: 251 79% 45%;
+    --color-secondary: 164 95% 36%;     /* #00B894 → mint */
+    --color-secondary-light: 164 95% 45%;
+    --color-accent: 41 95% 62%;         /* #FDCB6E → warm amber */
+    --color-accent-light: 41 95% 72%;
 
-    /* shadcn compatibility tokens (mapped to MD3 values) */
-    --background: 270 20% 99%;       /* #FFFBFE - Surface */
-    --foreground: 270 10% 11%;       /* #1C1B1F - On Surface */
-    --card: 270 30% 96%;             /* #F3EDF7 - Surface Container */
-    --card-foreground: 270 10% 11%;
-    --popover: 270 30% 96%;
-    --popover-foreground: 270 10% 11%;
-    --primary: 267 39% 48%;          /* #6750A4 - Primary */
-    --primary-foreground: 0 0% 100%; /* #FFFFFF */
-    --secondary: 270 50% 93%;        /* #E8DEF8 - Secondary Container */
-    --secondary-foreground: 270 25% 14%; /* #1D192B */
-    --muted: 270 25% 91%;            /* #E7E0EC - Surface Container Low */
-    --muted-foreground: 270 6% 29%;  /* #49454F - On Surface Variant */
-    --accent: 270 50% 93%;
-    --accent-foreground: 270 25% 14%;
-    --destructive: 0 75% 42%;
+    /* Surfaces */
+    --color-bg: 36 100% 98%;            /* #FFFAF5 → warm white */
+    --color-bg-alt: 36 30% 96%;         /* slightly warmer alt */
+    --color-surface: 0 0% 100%;         /* pure white cards */
+    --color-surface-alt: 36 30% 97%;
+
+    /* Text */
+    --color-text: 190 6% 18%;           /* #2D3436 → charcoal */
+    --color-text-muted: 190 4% 45%;
+    --color-text-light: 190 4% 65%;
+
+    /* Borders */
+    --color-border: 36 20% 90%;
+    --color-border-light: 36 20% 94%;
+
+    /* Semantic aliases for shadcn/ui compatibility */
+    --background: 36 100% 98%;
+    --foreground: 190 6% 18%;
+    --card: 0 0% 100%;
+    --card-foreground: 190 6% 18%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 190 6% 18%;
+    --primary: 251 79% 57%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 36 30% 96%;
+    --secondary-foreground: 190 6% 18%;
+    --muted: 36 30% 96%;
+    --muted-foreground: 190 4% 45%;
+    --accent: 41 95% 62%;
+    --accent-foreground: 190 6% 18%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 270 4% 49%;            /* #79747E - Outline */
-    --input: 270 25% 91%;            /* Same as muted for filled inputs */
-    --ring: 267 39% 48%;             /* Same as primary */
+    --border: 36 20% 90%;
+    --input: 36 20% 90%;
+    --ring: 251 79% 57%;
     --radius: 0.75rem;
 
-    /* === MD3-specific extended tokens === */
-    --md-primary: #6750A4;
-    --md-on-primary: #FFFFFF;
-    --md-primary-container: #EADDFF;
-    --md-secondary: #625B71;
-    --md-secondary-container: #E8DEF8;
-    --md-on-secondary-container: #1D192B;
-    --md-tertiary: #7D5260;
-    --md-tertiary-container: #FFD8E4;
-    --md-surface: #FFFBFE;
-    --md-surface-container: #F3EDF7;
-    --md-surface-container-low: #E7E0EC;
-    --md-on-surface: #1C1B1F;
-    --md-on-surface-variant: #49454F;
-    --md-outline: #79747E;
-    --md-outline-variant: #CAC4D0;
+    /* Typography */
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
   }
 
   .dark {
-    --background: 270 30% 7%;        /* Dark surface */
-    --foreground: 270 20% 92%;
-    --card: 270 20% 12%;             /* Dark surface container */
-    --card-foreground: 270 20% 92%;
-    --popover: 270 20% 12%;
-    --popover-foreground: 270 20% 92%;
-    --primary: 270 100% 82%;         /* #D0BCFF - Primary (dark) */
-    --primary-foreground: 270 50% 20%;
-    --secondary: 270 30% 80%;
-    --secondary-foreground: 270 25% 14%;
-    --muted: 270 15% 18%;
-    --muted-foreground: 270 10% 70%;
-    --accent: 270 30% 80%;
-    --accent-foreground: 270 25% 14%;
-    --destructive: 0 60% 50%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 270 10% 30%;
-    --input: 270 15% 18%;
-    --ring: 270 100% 82%;
+    --color-bg: 190 6% 8%;
+    --color-bg-alt: 190 6% 12%;
+    --color-surface: 190 6% 14%;
+    --color-surface-alt: 190 6% 18%;
+    --color-text: 0 0% 95%;
+    --color-text-muted: 0 0% 60%;
+    --color-text-light: 0 0% 45%;
+    --color-border: 190 6% 22%;
+    --color-border-light: 190 6% 18%;
 
-    --md-primary: #D0BCFF;
-    --md-on-primary: #381E72;
-    --md-primary-container: #4F378B;
-    --md-secondary: #CCC2DC;
-    --md-secondary-container: #4A4458;
-    --md-on-secondary-container: #E8DEF8;
-    --md-tertiary: #EFB8C8;
-    --md-tertiary-container: #633B48;
-    --md-surface: #141218;
-    --md-surface-container: #211F26;
-    --md-surface-container-low: #1D1B20;
-    --md-on-surface: #E6E0E9;
-    --md-on-surface-variant: #CAC4D0;
-    --md-outline: #938F99;
-    --md-outline-variant: #49454F;
+    --background: 190 6% 8%;
+    --foreground: 0 0% 95%;
+    --card: 190 6% 14%;
+    --card-foreground: 0 0% 95%;
+    --popover: 190 6% 14%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 251 79% 65%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 190 6% 18%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 190 6% 18%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 41 95% 55%;
+    --accent-foreground: 190 6% 8%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 190 6% 22%;
+    --input: 190 6% 22%;
+    --ring: 251 79% 65%;
   }
 }
 
@@ -93,31 +96,14 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 }
 
-/* MD3 Material You easing */
-@layer utilities {
-  .ease-md {
-    transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
-  }
-}
-
-/* Reduced motion preference */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+/* Smooth dark mode transitions */
+html {
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
